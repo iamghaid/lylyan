@@ -1,1434 +1,783 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html class="dark" lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Lillian — صالون الأنيقة</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@200;300;400;500&family=Cairo:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ليليان — صالون الأناقة النسائي</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Jost:wght@300;400;500&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: "#C9A96E",
+        gold: "#C9A96E",
+        gold2: "#E8D5A3",
+        gold3: "#A07840",
+        ink: "#0C0907",
+        ink2: "#1A1210",
+        ink3: "#261A14",
+        cream: "#F7F0E6",
+        cream2: "#EDE3D5",
+        surface: "#161311",
+        "surface-high": "#2d2927",
+        "surface-low": "#1f1b19",
+        "on-surface": "#eae1dd",
+        "on-surface-dim": "#d0c5b5",
+      }
+    }
+  }
+}
+</script>
 <style>
-/* ═══════════════════════════════════════
-   DESIGN TOKENS
-═══════════════════════════════════════ */
-:root{
-  --ink:#0C0907;
-  --ink2:#1A1210;
-  --ink3:#261A14;
-  --gold:#C9A96E;
-  --gold2:#E8D5A3;
-  --gold3:#A07840;
-  --gold-rgb:201,169,110;
-  --rose:#C8949A;
-  --rose2:#E8C8CC;
-  --cream:#F7F0E6;
-  --cream2:#EDE3D5;
-  --cream3:#E0D4C4;
-  --white:#FDFAF6;
-  --muted:rgba(12,9,7,.45);
-  --ff-disp:'Playfair Display',serif;
-  --ff-body:'Jost',sans-serif;
-  --ff-ar:'Cairo',sans-serif;
-  --ff-ar-disp:'Noto Naskh Arabic',serif;
-  --ease-out:cubic-bezier(.16,1,.3,1);
-  --ease-in-out:cubic-bezier(.76,0,.24,1);
-  --dur:.65s;
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:16px}
-body{
-  font-family:var(--ff-ar);
-  background:var(--cream);
-  color:var(--ink);
-  overflow-x:hidden;
-  direction:rtl;
-  cursor:none;
-}
-body.en{font-family:var(--ff-body);direction:ltr}
-::selection{background:var(--gold);color:var(--ink)}
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-track{background:var(--ink2)}
-::-webkit-scrollbar-thumb{background:var(--gold)}
-img{display:block;width:100%}
+  :root {
+    --gold: #C9A96E;
+    --gold2: #E8D5A3;
+    --ink: #0C0907;
+    --cream: #F7F0E6;
+    --surface: #161311;
+  }
 
-/* ═══ CURSOR ═══ */
-#cur{
-  position:fixed;width:10px;height:10px;
-  background:var(--gold);border-radius:50%;
-  pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:width .3s,height .3s,opacity .3s;
-  mix-blend-mode:multiply;
-}
-#cur-ring{
-  position:fixed;width:38px;height:38px;
-  border:1px solid rgba(var(--gold-rgb),.5);
-  border-radius:50%;pointer-events:none;z-index:9998;
-  transform:translate(-50%,-50%);
-  transition:transform .12s var(--ease-out),width .3s,height .3s;
-}
-body:hover #cur{opacity:1}
-a:hover~#cur,button:hover~#cur{width:22px;height:22px}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  html { scroll-behavior: smooth; }
+  
+  body {
+    background: var(--ink);
+    color: #eae1dd;
+    font-family: 'Cairo', sans-serif;
+    overflow-x: hidden;
+  }
 
-/* ═══ LANG HELPERS ═══ */
-.ar-b,.ar-i{display:block}.en-b,.en-i{display:none}
-.ar-s{display:inline}.en-s{display:none}
-body.en .ar-b,.body.en .ar-i{display:none}
-body.en .en-b{display:block}body.en .en-i{display:inline}
-body.en .ar-s{display:none}body.en .en-s{display:inline}
+  /* Custom cursor - desktop only */
+  @media (pointer: fine) {
+    * { cursor: none !important; }
+    #cur { width:10px; height:10px; background:var(--gold); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform .1s; }
+    #cur-ring { width:36px; height:36px; border:1px solid rgba(201,169,110,.35); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:transform .15s ease-out; }
+  }
 
-/* ═══ NAV ═══ */
-#nav{
-  position:fixed;top:0;inset-inline:0;z-index:800;
-  padding:32px 60px;
-  display:flex;align-items:center;justify-content:space-between;
-  transition:padding .5s var(--ease-out),background .5s;
-}
-#nav.scrolled{
-  padding:18px 60px;
-  background:rgba(12,9,7,.88);
-  backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(var(--gold-rgb),.12);
-}
-.nav-logo{
-  display:flex;flex-direction:column;
-  align-items:flex-end;
-  text-decoration:none;
-}
-body.en .nav-logo{align-items:flex-start}
-.logo-main{
-  font-family:var(--ff-disp);
-  font-size:26px;font-weight:400;
-  color:var(--white);letter-spacing:5px;
-  line-height:1;
-}
-.logo-tagline{
-  font-family:var(--ff-body);
-  font-size:9px;letter-spacing:4px;
-  text-transform:uppercase;color:var(--gold);
-  margin-top:3px;
-}
-.nav-mid{display:flex;gap:36px;list-style:none}
-.nav-mid a{
-  font-size:11px;font-weight:300;letter-spacing:2px;
-  text-transform:uppercase;color:rgba(255,255,255,.55);
-  text-decoration:none;transition:color .3s;
-  font-family:var(--ff-body);
-}
-body.en .nav-mid a{font-family:var(--ff-body)}
-.nav-mid a:hover{color:var(--gold)}
-.nav-end{display:flex;align-items:center;gap:14px}
-.btn-lang{
-  background:none;border:1px solid rgba(var(--gold-rgb),.35);
-  color:rgba(255,255,255,.55);padding:7px 16px;
-  border-radius:2px;font-size:9px;letter-spacing:2.5px;
-  text-transform:uppercase;cursor:none;transition:.3s;
-  font-family:var(--ff-body);
-}
-.btn-lang:hover{border-color:var(--gold);color:var(--gold)}
-.btn-nav-cta{
-  background:var(--gold);color:var(--ink);
-  border:none;padding:10px 26px;
-  border-radius:2px;font-size:10px;font-weight:500;
-  letter-spacing:2px;text-transform:uppercase;
-  cursor:none;text-decoration:none;transition:.3s;
-  font-family:var(--ff-body);
-}
-.btn-nav-cta:hover{background:var(--gold2)}
-.burger{display:none;flex-direction:column;gap:6px;cursor:none;background:none;border:none;padding:4px}
-.burger span{display:block;width:26px;height:1px;background:var(--white);transition:.35s}
+  /* Grain */
+  .grain::after {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:5;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity:.04;
+  }
 
-/* ═══ MOBILE MENU ═══ */
-#mmenu{
-  position:fixed;inset:0;background:var(--ink);z-index:850;
-  display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:42px;
-  transform:translateY(-100%);transition:.6s var(--ease-in-out);
-  pointer-events:none;
-}
-#mmenu.open{transform:none;pointer-events:all}
-#mmenu a{
-  font-family:var(--ff-disp);font-size:38px;font-weight:400;
-  color:var(--white);text-decoration:none;letter-spacing:3px;
-  transition:.3s;opacity:0;transform:translateY(20px);
-  transition:.4s var(--ease-out);
-}
-#mmenu.open a{opacity:1;transform:none}
-#mmenu.open a:nth-child(2){transition-delay:.05s}
-#mmenu.open a:nth-child(3){transition-delay:.1s}
-#mmenu.open a:nth-child(4){transition-delay:.15s}
-#mmenu.open a:nth-child(5){transition-delay:.2s}
-#mmenu.open a:nth-child(6){transition-delay:.25s}
-#mmenu a:hover{color:var(--gold)}
-#mclose{
-  position:absolute;top:28px;inset-inline-end:32px;
-  background:none;border:none;color:var(--white);
-  font-size:22px;cursor:none;opacity:.55;transition:.3s;
-}
-#mclose:hover{opacity:1;color:var(--gold)}
+  /* Arch shape */
+  .arch { border-radius: 400px 400px 0 0; overflow: hidden; }
 
-/* ═══ HERO ═══ */
-.hero{
-  position:relative;height:100vh;min-height:680px;
-  display:flex;align-items:flex-end;
-  overflow:hidden;background:var(--ink);
-}
-.hero-bg{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 55% 75% at 75% 30%,rgba(var(--gold-rgb),.06) 0%,transparent 65%),
-    radial-gradient(ellipse 40% 50% at 20% 80%,rgba(200,148,154,.07) 0%,transparent 60%),
-    linear-gradient(160deg,#120A06 0%,#0C0907 40%,#100C08 100%);
-}
-/* grain overlay */
-.hero-grain{
-  position:absolute;inset:0;z-index:1;opacity:.035;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:200px 200px;
-}
-.hero-line{
-  position:absolute;z-index:2;
-  top:0;bottom:0;
-  inset-inline-start:50%;
-  width:1px;
-  background:linear-gradient(to bottom,transparent 0%,rgba(var(--gold-rgb),.18) 40%,rgba(var(--gold-rgb),.18) 60%,transparent 100%);
-}
-.hero-content{
-  position:relative;z-index:3;
-  width:100%;padding:0 60px 80px;
-  display:grid;grid-template-columns:1fr 1fr;
-  align-items:flex-end;gap:40px;
-}
-.hero-left{}
-.hero-eyebrow{
-  display:flex;align-items:center;gap:14px;
-  margin-bottom:28px;
-}
-.eyebrow-line{width:48px;height:1px;background:var(--gold)}
-.eyebrow-text{
-  font-family:var(--ff-body);font-size:9.5px;
-  letter-spacing:4px;text-transform:uppercase;
-  color:var(--gold);font-weight:300;
-}
-.hero-h{
-  font-family:var(--ff-disp);
-  font-size:clamp(64px,9vw,120px);
-  font-weight:400;color:var(--white);
-  line-height:.92;letter-spacing:-1px;
-}
-.hero-h em{font-style:italic;color:var(--gold)}
-.hero-h-ar{
-  font-family:var(--ff-ar-disp);
-  font-size:clamp(36px,5.5vw,72px);
-  font-weight:700;color:var(--white);
-  line-height:1.12;margin-bottom:0;
-  display:none;
-}
-body.en .hero-h{display:block}
-.hero-sub-row{
-  display:flex;align-items:center;gap:24px;
-  margin-top:36px;
-}
-.hero-rating{display:flex;flex-direction:column;gap:4px}
-.h-stars{display:flex;gap:3px}
-.h-stars span{color:var(--gold);font-size:14px}
-.h-r-num{font-family:var(--ff-disp);font-size:28px;color:var(--white);font-weight:400}
-.h-r-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);font-family:var(--ff-body)}
-.h-divider{width:1px;height:48px;background:rgba(var(--gold-rgb),.25)}
-.hero-loc{display:flex;flex-direction:column;gap:4px}
-.h-loc-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);font-family:var(--ff-body)}
-.h-loc-val{font-size:13px;color:rgba(255,255,255,.7)}
+  /* Marquee */
+  .marquee-wrap { overflow:hidden; }
+  .marquee-track { display:flex; width:max-content; animation: slide 35s linear infinite; }
+  @keyframes slide { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-.hero-right{
-  display:flex;flex-direction:column;
-  align-items:flex-end;gap:36px;
-  padding-bottom:4px;
-}
-body.en .hero-right{align-items:flex-start}
-.hero-desc{
-  font-size:13.5px;line-height:1.9;
-  color:rgba(255,255,255,.42);
-  max-width:340px;text-align:right;
-  font-weight:300;
-}
-body.en .hero-desc{text-align:left}
-.hero-cta-row{display:flex;gap:14px;align-items:center}
-.btn-hero-primary{
-  background:var(--gold);color:var(--ink);
-  border:none;padding:16px 36px;border-radius:2px;
-  font-size:10px;font-weight:500;letter-spacing:2.5px;
-  text-transform:uppercase;cursor:none;
-  text-decoration:none;transition:.4s var(--ease-out);
-  font-family:var(--ff-body);display:inline-block;
-}
-.btn-hero-primary:hover{background:var(--gold2);transform:translateY(-2px)}
-.btn-hero-ghost{
-  border:1px solid rgba(255,255,255,.2);
-  color:rgba(255,255,255,.55);background:none;
-  padding:16px 36px;border-radius:2px;font-size:10px;
-  letter-spacing:2.5px;text-transform:uppercase;
-  cursor:none;text-decoration:none;transition:.4s;
-  font-family:var(--ff-body);display:inline-block;
-}
-.btn-hero-ghost:hover{border-color:var(--gold);color:var(--gold)}
-.hero-scroll{
-  position:absolute;bottom:38px;
-  inset-inline-end:48px;z-index:4;
-  display:flex;flex-direction:column;
-  align-items:center;gap:10px;writing-mode:vertical-rl;
-}
-.scroll-word{
-  font-family:var(--ff-body);font-size:9px;
-  letter-spacing:3px;text-transform:uppercase;
-  color:rgba(255,255,255,.25);
-}
-.scroll-track{width:1px;height:48px;background:rgba(255,255,255,.1);position:relative;overflow:hidden}
-.scroll-fill{
-  position:absolute;top:-100%;width:100%;height:100%;
-  background:var(--gold);
-  animation:scrollFill 2.5s var(--ease-in-out) infinite;
-}
-@keyframes scrollFill{0%{top:-100%}100%{top:100%}}
-.hero-badge{
-  position:absolute;top:50%;inset-inline-end:9%;
-  transform:translateY(-50%);z-index:3;
-  width:128px;height:128px;border-radius:50%;
-  border:1px solid rgba(var(--gold-rgb),.25);
-  display:flex;align-items:center;justify-content:center;
-}
-.badge-inner{
-  width:104px;height:104px;border-radius:50%;
-  background:rgba(var(--gold-rgb),.07);border:1px solid rgba(var(--gold-rgb),.15);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
-  animation:rotateBadge 18s linear infinite;
-}
-@keyframes rotateBadge{to{transform:rotate(360deg)}}
-.badge-inner span{font-size:9.5px;letter-spacing:1.5px;color:var(--gold);font-family:var(--ff-body);text-transform:uppercase}
-.badge-inner strong{font-family:var(--ff-disp);font-size:24px;color:var(--white);font-weight:400;animation:rotateBadge 18s linear reverse infinite}
+  /* Reveal animation */
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity .75s ease, transform .75s ease; }
+  .reveal.on { opacity:1; transform:translateY(0); }
 
-/* ═══ MARQUEE ═══ */
-.marquee-wrap{
-  background:var(--gold);
-  padding:14px 0;overflow:hidden;
-  white-space:nowrap;
-}
-.marquee-track{
-  display:inline-flex;gap:0;
-  animation:marqueeScroll 22s linear infinite;
-}
-body.en .marquee-track{animation-direction:reverse}
-@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.marquee-item{
-  font-family:var(--ff-body);font-size:11px;
-  font-weight:500;letter-spacing:3px;
-  text-transform:uppercase;color:var(--ink);
-  padding:0 32px;display:inline-flex;align-items:center;gap:32px;
-}
-.marquee-item::after{content:'✦';font-size:8px;opacity:.5}
+  /* Nav */
+  #nav { transition: height .4s, background .4s; }
+  #nav.scrolled { height:64px !important; background: rgba(12,9,7,.97) !important; }
 
-/* ═══ SECTION SHARED ═══ */
-section{padding:112px 0}
-.ctr{max-width:1280px;margin:0 auto;padding:0 60px}
-.lbl{
-  display:inline-flex;align-items:center;gap:12px;
-  font-family:var(--ff-body);font-size:9px;
-  letter-spacing:4px;text-transform:uppercase;
-  color:var(--gold);margin-bottom:18px;font-weight:300;
-}
-.lbl::before{content:'';width:36px;height:1px;background:var(--gold)}
-.h2-en{
-  font-family:var(--ff-disp);
-  font-size:clamp(40px,5.5vw,68px);
-  font-weight:400;color:var(--ink);
-  line-height:1.05;letter-spacing:-.5px;
-}
-.h2-en em{font-style:italic;color:var(--gold3)}
-.h2-ar{
-  font-family:var(--ff-ar-disp);
-  font-size:clamp(30px,4.5vw,52px);
-  font-weight:700;color:var(--ink);line-height:1.18;
-}
-.body-txt{
-  font-size:13.5px;line-height:1.95;
-  color:rgba(12,9,7,.52);font-weight:300;
-}
+  /* Service card hover */
+  .svc-card { transition: border-color .3s; }
+  .svc-card:hover { border-color: var(--gold); }
 
-/* reveal */
-.rv{opacity:0;transform:translateY(30px);transition:opacity .75s var(--ease-out),transform .75s var(--ease-out)}
-.rv.on{opacity:1;transform:none}
-.rv-l{opacity:0;transform:translateX(-30px);transition:opacity .75s var(--ease-out),transform .75s var(--ease-out)}
-.rv-l.on{opacity:1;transform:none}
-.rv-r{opacity:0;transform:translateX(30px);transition:opacity .75s var(--ease-out),transform .75s var(--ease-out)}
-.rv-r.on{opacity:1;transform:none}
+  /* Price table */
+  .price-row { display:flex; align-items:baseline; gap:8px; padding: 10px 0; border-bottom: 1px solid rgba(201,169,110,.1); }
+  .price-row:last-child { border-bottom:none; }
+  .price-dot { flex:1; border-bottom:1px dotted rgba(201,169,110,.25); margin:0 8px; min-width:20px; }
+  .price-val { color:var(--gold); font-weight:600; white-space:nowrap; font-size:.95rem; }
 
-/* ═══ ABOUT ═══ */
-.about{background:var(--white);position:relative;overflow:hidden}
-.about::before{
-  content:'';position:absolute;
-  bottom:-120px;inset-inline-start:-120px;
-  width:480px;height:480px;border-radius:50%;
-  background:radial-gradient(circle,rgba(var(--gold-rgb),.06) 0%,transparent 70%);
-  pointer-events:none;
-}
-.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:100px;align-items:center}
-body.en .about-grid{direction:ltr}
-.about-img-stack{position:relative}
-.aimg-main{
-  aspect-ratio:4/5;border-radius:4px;
-  background:linear-gradient(145deg,var(--cream2) 0%,var(--cream3) 100%);
-  display:flex;align-items:center;justify-content:center;
-  font-size:80px;overflow:hidden;
-}
-.aimg-accent{
-  position:absolute;bottom:-28px;
-  inset-inline-end:-28px;
-  width:220px;aspect-ratio:1;
-  border-radius:4px;
-  background:var(--gold);
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:4px;box-shadow:0 32px 64px rgba(12,9,7,.15);
-}
-.aa-num{font-family:var(--ff-disp);font-size:52px;font-weight:400;color:var(--ink);line-height:1}
-.aa-lbl{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(12,9,7,.55);font-family:var(--ff-body)}
-.aimg-tag{
-  position:absolute;top:-24px;inset-inline-start:-20px;
-  background:var(--ink);border-radius:4px;
-  padding:16px 22px;
-  display:flex;flex-direction:column;gap:3px;
-  box-shadow:0 18px 48px rgba(12,9,7,.22);
-}
-.at-score{font-family:var(--ff-disp);font-size:26px;color:var(--gold);line-height:1}
-.at-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.38);font-family:var(--ff-body)}
-.at-stars{display:flex;gap:3px;margin-top:3px}
-.at-stars span{color:var(--gold);font-size:11px}
-.about-feats{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:38px}
-.af{padding:22px 20px;border:1px solid var(--cream2);border-radius:4px;transition:.35s}
-.af:hover{border-color:rgba(var(--gold-rgb),.3);background:var(--cream)}
-.af-icon{font-size:22px;margin-bottom:10px}
-.af-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px}
-.af-desc{font-size:11.5px;color:rgba(12,9,7,.45);line-height:1.6}
+  /* Tab buttons */
+  .tab-btn { transition: all .25s; }
+  .tab-btn.active { background:var(--gold); color:var(--ink); }
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; }
 
-/* ═══ SERVICES ═══ */
-.services{background:var(--ink);position:relative;overflow:hidden}
-.services::before{
-  content:'';position:absolute;
-  top:0;inset-inline-end:0;
-  width:500px;height:500px;
-  background:radial-gradient(circle,rgba(var(--gold-rgb),.05) 0%,transparent 65%);
-}
-.services .lbl{color:var(--gold)}
-.services .h2-en,.services .h2-ar{color:var(--white)}
-.svc-header{
-  display:grid;grid-template-columns:1fr 1fr;
-  align-items:flex-end;gap:60px;margin-bottom:64px;
-}
-.svc-header-r{text-align:right;display:flex;flex-direction:column;align-items:flex-end}
-body.en .svc-header-r{text-align:left;align-items:flex-start}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06)}
-.svc-card{
-  padding:44px 38px;background:var(--ink2);
-  transition:.4s var(--ease-out);position:relative;overflow:hidden;
-}
-.svc-card::after{
-  content:'';position:absolute;bottom:0;
-  inset-inline-start:0;inset-inline-end:0;
-  height:1px;background:var(--gold);
-  transform:scaleX(0);transform-origin:inset-inline-end center;
-  transition:.4s var(--ease-out);
-}
-.svc-card:hover{background:var(--ink3)}
-.svc-card:hover::after{transform:scaleX(1);transform-origin:inset-inline-start center}
-.svc-num{
-  font-family:var(--ff-disp);font-size:11px;
-  color:rgba(var(--gold-rgb),.35);letter-spacing:2px;
-  margin-bottom:28px;
-}
-.svc-icon{font-size:28px;margin-bottom:18px;display:block;transition:.4s}
-.svc-card:hover .svc-icon{transform:scale(1.1)}
-.svc-name{
-  font-family:var(--ff-disp);font-size:20px;
-  font-weight:400;color:var(--white);margin-bottom:12px;
-  line-height:1.25;
-}
-body.en .svc-name{font-family:var(--ff-disp)}
-.svc-desc{font-size:12.5px;color:rgba(255,255,255,.38);line-height:1.8;margin-bottom:26px;font-weight:300}
-.svc-price{
-  font-family:var(--ff-disp);font-size:22px;
-  color:var(--gold);display:flex;align-items:baseline;gap:6px;
-}
-.svc-price small{font-family:var(--ff-body);font-size:10px;color:rgba(255,255,255,.28);letter-spacing:1.5px;text-transform:uppercase}
-.svc-arrow{
-  position:absolute;top:38px;inset-inline-end:34px;
-  font-size:18px;color:rgba(var(--gold-rgb),.2);
-  transition:.35s;transform:rotate(45deg);
-}
-.svc-card:hover .svc-arrow{color:var(--gold);transform:rotate(0deg)}
-.svc-cta{margin-top:56px;text-align:center}
+  /* Offers badge */
+  .featured-badge { position:absolute; top:16px; left:16px; background:var(--gold); color:var(--ink); padding:3px 10px; font-size:.65rem; letter-spacing:.15em; font-weight:700; }
 
-/* ═══ OFFERS ═══ */
-.offers{background:var(--cream);position:relative}
-.off-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
-.off-card{
-  border:1px solid var(--cream3);border-radius:4px;
-  padding:44px 36px;background:var(--white);
-  transition:.4s var(--ease-out);position:relative;overflow:hidden;
-}
-.off-card::before{
-  content:'';position:absolute;inset-inline-start:0;top:0;bottom:0;
-  width:2px;background:var(--gold);
-  transform:scaleY(0);transform-origin:bottom;
-  transition:.4s var(--ease-out);
-}
-.off-card:hover{transform:translateY(-6px);box-shadow:0 32px 72px rgba(12,9,7,.1)}
-.off-card:hover::before{transform:scaleY(1)}
-.off-card.featured{
-  background:var(--ink);border-color:transparent;
-}
-.off-card.featured .off-name,.off-card.featured .off-big{color:var(--white)}
-.off-card.featured .off-note,.off-card.featured .off-li{color:rgba(255,255,255,.42)}
-.off-card.featured::before{background:var(--gold)}
-.off-badge{
-  display:inline-block;background:var(--gold);
-  color:var(--ink);font-size:8.5px;letter-spacing:2.5px;
-  text-transform:uppercase;padding:5px 14px;
-  border-radius:2px;font-family:var(--ff-body);font-weight:500;
-  margin-bottom:24px;
-}
-.off-badge.rose{background:var(--rose);color:var(--white)}
-.off-name{
-  font-family:var(--ff-disp);font-size:24px;font-weight:400;
-  color:var(--ink);margin-bottom:6px;
-}
-.off-note{font-size:11.5px;color:rgba(12,9,7,.4);margin-bottom:24px;font-weight:300}
-.off-big{
-  font-family:var(--ff-disp);font-size:58px;font-weight:400;
-  color:var(--gold);line-height:1;margin-bottom:6px;
-}
-.off-big small{font-size:22px}
-.off-sep{width:32px;height:1px;background:var(--cream3);margin:22px 0}
-.off-card.featured .off-sep{background:rgba(255,255,255,.1)}
-.off-li{
-  font-size:12px;color:rgba(12,9,7,.48);
-  padding:9px 0;border-bottom:1px solid var(--cream2);
-  display:flex;align-items:center;gap:10px;
-  list-style:none;font-weight:300;
-}
-.off-card.featured .off-li{border-bottom-color:rgba(255,255,255,.07)}
-.off-li::before{content:'—';color:var(--gold);font-size:10px}
-.off-li:last-child{border:none}
-.off-ul{margin:0 0 32px;padding:0;list-style:none}
-.btn-off{
-  width:100%;padding:14px;border-radius:2px;
-  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
-  font-family:var(--ff-body);cursor:none;text-align:center;
-  text-decoration:none;display:block;transition:.35s;
-}
-.btn-off.solid{background:var(--gold);color:var(--ink);border:none}
-.btn-off.solid:hover{background:var(--gold2)}
-.btn-off.dark{background:var(--white);color:var(--ink);border:none}
-.btn-off.dark:hover{background:var(--cream2)}
-.btn-off.outline{background:none;color:rgba(12,9,7,.55);border:1px solid var(--cream3)}
-.btn-off.outline:hover{border-color:var(--gold);color:var(--gold)}
+  /* WhatsApp pulse */
+  @keyframes wp-pulse {
+    0%{transform:scale(1);box-shadow:0 0 0 0 rgba(37,211,102,.6)}
+    70%{transform:scale(1.06);box-shadow:0 0 0 12px rgba(37,211,102,0)}
+    100%{transform:scale(1);box-shadow:0 0 0 0 rgba(37,211,102,0)}
+  }
+  #wp-btn { animation: wp-pulse 2.5s infinite; }
 
-/* ═══ STATS ═══ */
-.stats-strip{
-  background:var(--gold);padding:56px 0;
-}
-.stats-inner{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:0;text-align:center;
-  max-width:1280px;margin:0 auto;padding:0 60px;
-}
-.stat-item{
-  padding:0 32px;
-  border-inline-end:1px solid rgba(12,9,7,.12);
-}
-.stat-item:last-child{border:none}
-.stat-n{font-family:var(--ff-disp);font-size:56px;font-weight:400;color:var(--ink);line-height:1}
-.stat-l{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(12,9,7,.45);font-family:var(--ff-body);margin-top:6px}
+  /* Mobile menu */
+  #mobile-menu { transform:translateX(100%); transition:transform .35s ease; }
+  #mobile-menu.open { transform:translateX(0); }
 
-/* ═══ REVIEWS ═══ */
-.reviews{background:var(--white)}
-.rev-head{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:flex-end;margin-bottom:72px}
-.rev-head-r{
-  display:flex;flex-direction:column;align-items:flex-end;
-  gap:16px;
-}
-body.en .rev-head-r{align-items:flex-start}
-.overall-score{
-  font-family:var(--ff-disp);font-size:80px;
-  font-weight:400;color:var(--ink);line-height:1;
-}
-.os-stars{display:flex;gap:5px;margin:8px 0}
-.os-stars span{color:var(--gold);font-size:20px}
-.os-lbl{font-size:11px;color:rgba(12,9,7,.38);letter-spacing:1.5px;font-family:var(--ff-body)}
-.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--cream2)}
-.rev-card{
-  background:var(--white);padding:38px 36px;transition:.35s;
-}
-.rev-card:hover{background:var(--cream)}
-.rev-quote-mark{
-  font-family:var(--ff-disp);font-size:56px;
-  color:var(--gold);opacity:.2;line-height:.7;
-  margin-bottom:16px;
-}
-.rev-text{
-  font-size:13.5px;line-height:1.88;
-  color:rgba(12,9,7,.62);margin-bottom:28px;
-  font-style:italic;font-weight:300;
-}
-.rev-foot{display:flex;align-items:center;gap:14px}
-.rev-av{
-  width:46px;height:46px;border-radius:50%;
-  background:var(--gold);display:flex;
-  align-items:center;justify-content:center;
-  font-size:20px;flex-shrink:0;
-}
-.rev-name{font-size:13.5px;font-weight:600;color:var(--ink)}
-.rev-date{font-size:10.5px;color:rgba(12,9,7,.35);letter-spacing:1px;font-family:var(--ff-body)}
+  /* Form inputs */
+  .form-field { background:transparent; border:none; border-bottom:1px solid rgba(201,169,110,.3); padding:10px 0; width:100%; color:#eae1dd; font-family:'Cairo',sans-serif; font-size:1rem; outline:none; transition:border-color .3s; }
+  .form-field:focus { border-color:var(--gold); }
+  select.form-field option { background:#1f1b19; }
 
-/* ═══ GALLERY ═══ */
-.gallery-sec{background:var(--white)}
-.gal-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  grid-template-rows:280px 280px;
-  gap:10px;
-}
-.gal-item{
-  position:relative;overflow:hidden;border-radius:4px;
-  background:var(--cream2);cursor:none;
-}
-.gal-tall{grid-row:span 2}
-.gal-col{display:flex;flex-direction:column;gap:10px}
-.gal-col .gal-item{flex:1}
-.gal-item img{
-  width:100%;height:100%;object-fit:cover;
-  transition:.6s var(--ease-out);display:block;
-}
-.gal-item:hover img{transform:scale(1.06)}
-.gal-over{
-  position:absolute;bottom:0;inset-inline:0;
-  padding:22px 20px 18px;
-  background:linear-gradient(to top,rgba(12,9,7,.72) 0%,transparent 100%);
-  color:var(--white);font-size:12px;letter-spacing:2px;
-  text-transform:uppercase;font-family:var(--ff-body);
-  opacity:0;transform:translateY(8px);transition:.35s;
-}
-.gal-item:hover .gal-over{opacity:1;transform:none}
-@media(max-width:768px){
-  .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;height:auto}
-  .gal-tall{grid-row:span 1}
-  .gal-col{display:contents}
-  .gal-item{height:200px}
-}
+  /* Responsive image container */
+  .img-box { background: #1f1b19; overflow:hidden; position:relative; }
+  .img-box img { width:100%; height:100%; object-fit:cover; transition: transform .6s ease, filter .6s ease; }
+  .img-box:hover img { transform:scale(1.04); filter:grayscale(0%) !important; }
+  .img-overlay { position:absolute; inset:0; background:rgba(12,9,7,.55); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .3s; }
+  .img-box:hover .img-overlay { opacity:1; }
 
-/* ═══ BOOKING ═══ */
-.booking{background:var(--ink);position:relative;overflow:hidden}
-.booking::before{
-  content:'';position:absolute;
-  top:-200px;inset-inline-start:-200px;
-  width:600px;height:600px;border-radius:50%;
-  background:radial-gradient(circle,rgba(var(--gold-rgb),.06) 0%,transparent 65%);
-}
-.booking .lbl{color:var(--gold)}
-.booking .h2-en,.booking .h2-ar{color:var(--white)}
-.booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start;position:relative;z-index:1}
-.booking-body{font-size:13.5px;color:rgba(255,255,255,.38);line-height:1.9;margin-bottom:44px;font-weight:300}
-.contact-items{display:flex;flex-direction:column;gap:24px}
-.ci{display:flex;align-items:flex-start;gap:18px}
-.ci-icon{
-  width:46px;height:46px;border-radius:2px;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;flex-shrink:0;
-}
-.ci-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:var(--ff-body);margin-bottom:4px}
-.ci-val{font-size:13.5px;color:rgba(255,255,255,.65);text-decoration:none;transition:.3s}
-.ci-val:hover{color:var(--gold)}
-.hours-section{margin-top:36px}
-.hours-title{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.3);font-family:var(--ff-body);margin-bottom:16px}
-.h-row{
-  display:flex;justify-content:space-between;
-  padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05);
-  font-size:12.5px;
-}
-.h-row:last-child{border:none}
-.h-day{color:rgba(255,255,255,.38)}
-.h-time{color:rgba(255,255,255,.65);font-family:var(--ff-body);font-size:12px}
-
-/* form */
-.booking-form{
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:4px;padding:48px;
-}
-.form-heading{
-  font-family:var(--ff-disp);font-size:28px;
-  font-weight:400;color:var(--white);margin-bottom:36px;
-}
-.fg{margin-bottom:20px}
-.fg label{
-  display:block;font-size:9px;letter-spacing:2px;
-  text-transform:uppercase;color:rgba(255,255,255,.3);
-  font-family:var(--ff-body);margin-bottom:9px;
-}
-.fg input,.fg select,.fg textarea{
-  width:100%;background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:2px;padding:14px 18px;
-  font-size:13.5px;color:var(--white);
-  outline:none;transition:.3s;font-family:var(--ff-ar);
-  appearance:none;
-}
-body.en .fg input,body.en .fg select,body.en .fg textarea{font-family:var(--ff-body)}
-.fg input::placeholder,.fg textarea::placeholder{color:rgba(255,255,255,.2)}
-.fg input:focus,.fg select:focus,.fg textarea:focus{
-  border-color:rgba(var(--gold-rgb),.45);
-  background:rgba(255,255,255,.06);
-}
-.fg select option{background:var(--ink);color:var(--white)}
-.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.btn-form{
-  width:100%;background:var(--gold);color:var(--ink);
-  border:none;padding:17px;border-radius:2px;
-  font-size:10px;font-weight:500;letter-spacing:2.5px;
-  text-transform:uppercase;cursor:none;
-  font-family:var(--ff-body);transition:.35s;margin-top:6px;
-}
-.btn-form:hover{background:var(--gold2)}
-
-/* ═══ FOOTER ═══ */
-footer{background:var(--ink2);padding:72px 0 32px}
-.footer-top{
-  display:grid;grid-template-columns:1.6fr 1fr 1fr;
-  gap:80px;margin-bottom:64px;
-}
-.f-logo-main{
-  font-family:var(--ff-disp);font-size:32px;
-  font-weight:400;color:var(--white);letter-spacing:5px;
-}
-.f-logo-sub{
-  font-family:var(--ff-body);font-size:9px;
-  letter-spacing:4px;text-transform:uppercase;
-  color:var(--gold);margin-top:3px;margin-bottom:16px;
-}
-.f-desc{font-size:12.5px;color:rgba(255,255,255,.32);line-height:1.85;max-width:290px;font-weight:300}
-.f-socials{display:flex;gap:10px;margin-top:24px}
-.f-soc{
-  width:42px;height:42px;border-radius:2px;
-  border:1px solid rgba(255,255,255,.07);
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;text-decoration:none;transition:.35s;cursor:none;
-}
-.f-soc:hover{border-color:var(--gold);background:rgba(var(--gold-rgb),.08)}
-.f-col-title{
-  font-family:var(--ff-body);font-size:9px;
-  letter-spacing:3px;text-transform:uppercase;
-  color:rgba(255,255,255,.28);margin-bottom:22px;
-}
-.f-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
-.f-col ul li a{font-size:12.5px;color:rgba(255,255,255,.38);text-decoration:none;transition:.3s}
-.f-col ul li a:hover{color:var(--gold)}
-.footer-bot{
-  border-top:1px solid rgba(255,255,255,.05);
-  padding-top:28px;display:flex;
-  justify-content:space-between;align-items:center;
-}
-.footer-bot p{font-size:11px;color:rgba(255,255,255,.2);font-family:var(--ff-body);letter-spacing:.5px}
-
-/* ═══ WA BUTTON ═══ */
-.wa-btn{
-  position:fixed;bottom:32px;inset-inline-start:32px;
-  width:58px;height:58px;background:#25D366;
-  border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-size:26px;
-  text-decoration:none;z-index:700;cursor:none;
-  box-shadow:0 8px 32px rgba(37,211,102,.35);
-  transition:.35s;
-}
-.wa-btn:hover{transform:scale(1.08);box-shadow:0 12px 44px rgba(37,211,102,.5)}
-.wa-pulse{
-  position:absolute;inset:0;border-radius:50%;
-  background:#25D366;opacity:.4;
-  animation:waPulse 2.8s ease-out infinite;
-}
-@keyframes waPulse{0%{transform:scale(1);opacity:.4}100%{transform:scale(1.9);opacity:0}}
-
-/* ═══ RESPONSIVE ═══ */
-@media(max-width:1060px){
-  .hero-content{grid-template-columns:1fr;padding:0 40px 70px}
-  .hero-right{align-items:flex-start}
-  .hero-desc{text-align:start}
-  .hero-badge{display:none}
-  .about-grid,.booking-grid{grid-template-columns:1fr;gap:64px}
-  .svc-grid,.rev-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-top{grid-template-columns:1fr 1fr;gap:48px}
-  .stats-inner{grid-template-columns:repeat(2,1fr);gap:32px}
-  .stat-item{border:none;border-bottom:1px solid rgba(12,9,7,.1);padding-bottom:24px}
-}
-@media(max-width:768px){
-  #nav{padding:20px 24px}
-  #nav.scrolled{padding:14px 24px}
-  .nav-mid,.btn-nav-cta{display:none}
-  .burger{display:flex}
-  .ctr{padding:0 24px}
-  section{padding:80px 0}
-  .hero-content{padding:0 24px 60px}
-  .svc-grid,.off-grid,.rev-grid{grid-template-columns:1fr}
-  .svc-header{grid-template-columns:1fr}
-  .rev-head{grid-template-columns:1fr;gap:32px}
-  .footer-top{grid-template-columns:1fr;gap:40px}
-  .footer-bot{flex-direction:column;gap:10px;text-align:center}
-  .fg-row{grid-template-columns:1fr}
-  .booking-form{padding:32px 24px}
-  .stats-inner{grid-template-columns:repeat(2,1fr)}
-}
+  /* Section spacing */
+  .section-pad { padding: 80px 24px; }
+  @media(min-width:768px){ .section-pad { padding: 120px 80px; } }
+  @media(min-width:1280px){ .section-pad { padding: 160px 80px; } }
 </style>
 </head>
-<body>
+<body class="grain">
 
-<!-- CUSTOM CURSOR -->
+<!-- Custom cursor (desktop) -->
 <div id="cur"></div>
 <div id="cur-ring"></div>
 
-<!-- NAV -->
-<nav id="nav">
-  <a class="nav-logo" href="#hero">
-    <span class="logo-main">Lillian</span>
-    <span class="logo-tagline"><span class="ar-s">صالون الأنيقة · جدة</span><span class="en-s">Elegant Salon · Jeddah</span></span>
-  </a>
+<!-- ========== NAV ========== -->
+<header id="nav" style="position:fixed;top:0;width:100%;z-index:50;height:80px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(12,9,7,.75);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,169,110,.15);">
+  <a href="#" style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--gold);text-decoration:none;letter-spacing:-.02em;">Lillian</a>
 
-  <ul class="nav-mid">
-    <li><a href="#about"><span class="ar-s">عن الصالون</span><span class="en-s">About</span></a></li>
-    <li><a href="#services"><span class="ar-s">الخدمات</span><span class="en-s">Services</span></a></li>
-    <li><a href="#offers"><span class="ar-s">العروض</span><span class="en-s">Offers</span></a></li>
-    <li><a href="#reviews"><span class="ar-s">التقييمات</span><span class="en-s">Reviews</span></a></li>
-    <li><a href="#gallery"><span class="ar-s">الأعمال</span><span class="en-s">Gallery</span></a></li>
-    <li><a href="#booking"><span class="ar-s">احجزي</span><span class="en-s">Book</span></a></li>
-  </ul>
+  <!-- Desktop nav -->
+  <nav style="display:none;" id="desk-nav">
+    <a href="#services" class="nav-link">الخدمات</a>
+    <a href="#prices" class="nav-link">الأسعار</a>
+    <a href="#offers" class="nav-link">العروض</a>
+    <a href="#gallery" class="nav-link">المعرض</a>
+    <a href="#about" class="nav-link">عن الصالون</a>
+    <a href="#contact" class="nav-link">تواصل</a>
+  </nav>
+  <style>
+    #desk-nav { gap:28px; }
+    @media(min-width:900px){ #desk-nav{display:flex!important;} }
+    .nav-link { color:#d0c5b5; text-decoration:none; font-size:.72rem; letter-spacing:.15em; font-family:'Jost',sans-serif; text-transform:uppercase; transition:color .25s; }
+    .nav-link:hover { color:var(--gold); }
+  </style>
 
-  <div class="nav-end">
-    <button class="btn-lang" onclick="toggleLang()">
-      <span class="ar-s">EN</span><span class="en-s">عربي</span>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <a href="#contact" style="background:rgba(201,169,110,.15);border:1px solid var(--gold);color:var(--gold);padding:8px 20px;font-size:.72rem;letter-spacing:.15em;font-family:'Jost',sans-serif;text-transform:uppercase;text-decoration:none;transition:all .25s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--ink)'" onmouseout="this.style.background='rgba(201,169,110,.15)';this.style.color='var(--gold)'">احجزي الآن</a>
+    <!-- Hamburger -->
+    <button id="hamburger" style="display:flex;flex-direction:column;gap:5px;background:none;border:none;padding:4px;" onclick="toggleMenu()">
+      <span style="display:block;width:22px;height:1.5px;background:var(--gold);transition:.3s;"></span>
+      <span style="display:block;width:16px;height:1.5px;background:var(--gold);transition:.3s;margin-right:0;"></span>
+      <span style="display:block;width:22px;height:1.5px;background:var(--gold);transition:.3s;"></span>
     </button>
-    <a href="#booking" class="btn-nav-cta">
-      <span class="ar-s">احجزي الآن</span><span class="en-s">Book Now</span>
+    <style>@media(min-width:900px){#hamburger{display:none!important;}}</style>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" style="position:fixed;top:0;right:0;width:80%;max-width:320px;height:100vh;background:#0C0907;z-index:100;padding:80px 32px 40px;border-left:1px solid rgba(201,169,110,.2);display:flex;flex-direction:column;gap:32px;">
+  <button onclick="toggleMenu()" style="position:absolute;top:24px;left:24px;background:none;border:none;color:var(--gold);font-size:1.5rem;">✕</button>
+  <a href="#services" class="mob-link" onclick="toggleMenu()">الخدمات</a>
+  <a href="#prices" class="mob-link" onclick="toggleMenu()">الأسعار</a>
+  <a href="#offers" class="mob-link" onclick="toggleMenu()">العروض</a>
+  <a href="#gallery" class="mob-link" onclick="toggleMenu()">المعرض</a>
+  <a href="#about" class="mob-link" onclick="toggleMenu()">عن الصالون</a>
+  <a href="#contact" class="mob-link" onclick="toggleMenu()">احجزي موعد</a>
+  <style>
+    .mob-link{color:#eae1dd;text-decoration:none;font-size:1.2rem;font-family:'Cairo',sans-serif;font-weight:600;letter-spacing:.05em;transition:color .2s;}
+    .mob-link:hover{color:var(--gold);}
+  </style>
+</div>
+<div id="menu-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;" onclick="toggleMenu()"></div>
+
+<!-- ========== HERO ========== -->
+<section style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 24px 60px;text-align:center;position:relative;overflow:hidden;">
+  <!-- Vertical center line -->
+  <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(201,169,110,.2) 30%,rgba(201,169,110,.2) 70%,transparent);display:none;" id="vline"></div>
+  <style>@media(min-width:768px){#vline{display:block!important;}}</style>
+
+  <div class="reveal on" style="max-width:800px;">
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:24px;color:var(--gold);">
+      <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1;">star</span>
+      <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1;">star</span>
+      <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1;">star</span>
+      <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1;">star</span>
+      <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1;">star_half</span>
+      <span style="font-size:.7rem;letter-spacing:.12em;font-family:'Jost',sans-serif;margin-right:4px;">4.7 تقييم جوجل (1,232 تقييم)</span>
+    </div>
+
+    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.2rem,8vw,5.5rem);line-height:1.1;letter-spacing:-.02em;color:#eae1dd;margin-bottom:16px;">
+      The Art of<br/><em style="color:var(--gold);">Feminine Beauty</em>
+    </h1>
+    <h2 style="font-family:'Cairo',sans-serif;font-size:clamp(1.4rem,4vw,2.5rem);font-weight:600;color:var(--gold);margin-bottom:28px;">
+      الأناقة التي تستحقينها
+    </h2>
+    <p style="font-family:'Cairo',sans-serif;font-size:1rem;color:#d0c5b5;line-height:1.8;max-width:560px;margin:0 auto 40px;">
+      استمتعي بتجربة فريدة من الجمال والرفاهية في قلب جدة<br/>فندق أراك، حي المروة
+    </p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;">
+      <a href="#services" style="border:1px solid var(--gold);color:var(--gold);padding:14px 36px;font-family:'Cairo',sans-serif;font-size:.8rem;letter-spacing:.1em;text-decoration:none;transition:all .25s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--ink)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">استكشفي الخدمات</a>
+      <a href="https://wa.me/966545316367" style="background:var(--gold);color:var(--ink);padding:14px 36px;font-family:'Cairo',sans-serif;font-size:.8rem;letter-spacing:.1em;text-decoration:none;font-weight:700;transition:opacity .25s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">احجزي عبر واتساب</a>
+    </div>
+  </div>
+
+  <div style="position:absolute;bottom:32px;color:rgba(201,169,110,.5);animation:bounce 2s infinite;">
+    <span class="material-symbols-outlined">expand_more</span>
+  </div>
+  <style>@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}</style>
+</section>
+
+<!-- ========== MARQUEE ========== -->
+<div style="background:#1A1210;overflow:hidden;padding:14px 0;border-top:1px solid rgba(201,169,110,.15);border-bottom:1px solid rgba(201,169,110,.15);">
+  <div class="marquee-track" style="display:flex;gap:48px;white-space:nowrap;">
+    <span style="font-family:'Cairo',sans-serif;font-size:.75rem;letter-spacing:.18em;color:var(--gold2);text-transform:uppercase;">تصفيف الشعر · المكياج · الحمام المغربي · مانيكير وباديكير · صبغة الشعر · إزالة الشعر · تنظيف البشرة · المساج · العناية بالأظافر</span>
+    <span style="font-family:'Cairo',sans-serif;font-size:.75rem;letter-spacing:.18em;color:var(--gold2);text-transform:uppercase;">تصفيف الشعر · المكياج · الحمام المغربي · مانيكير وباديكير · صبغة الشعر · إزالة الشعر · تنظيف البشرة · المساج · العناية بالأظافر</span>
+    <span style="font-family:'Cairo',sans-serif;font-size:.75rem;letter-spacing:.18em;color:var(--gold2);text-transform:uppercase;">تصفيف الشعر · المكياج · الحمام المغربي · مانيكير وباديكير · صبغة الشعر · إزالة الشعر · تنظيف البشرة · المساج · العناية بالأظافر</span>
+  </div>
+</div>
+
+<!-- ========== SERVICES ========== -->
+<section id="services" class="section-pad reveal">
+  <div style="text-align:center;margin-bottom:64px;">
+    <p style="font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;">MENU OF CARE</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);color:#eae1dd;">خدمات متميزة</h2>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;">
+    <!-- Hair -->
+    <div class="svc-card" style="border:1px solid rgba(201,169,110,.2);padding:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(201,169,110,.2);padding-bottom:16px;margin-bottom:20px;">
+        <span class="material-symbols-outlined" style="color:var(--gold);font-size:2rem;">content_cut</span>
+        <span style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);">من 57.5 ريال</span>
+      </div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:12px;">تصفيف الشعر</h3>
+      <p style="font-family:'Cairo',sans-serif;font-size:.9rem;color:#d0c5b5;line-height:1.7;">قص، استشوار، تسريحات متنوعة تناسب كل المناسبات بأيدي متخصصات.</p>
+    </div>
+    <!-- Color -->
+    <div class="svc-card" style="border:1px solid rgba(201,169,110,.2);padding:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(201,169,110,.2);padding-bottom:16px;margin-bottom:20px;">
+        <span class="material-symbols-outlined" style="color:var(--gold);font-size:2rem;">palette</span>
+        <span style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);">من 182 ريال</span>
+      </div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:12px;">صبغة الشعر</h3>
+      <p style="font-family:'Cairo',sans-serif;font-size:.9rem;color:#d0c5b5;line-height:1.7;">هايلايت، أومبري، لون واحد، BB Touch وعلاجات DR.AN المتخصصة.</p>
+    </div>
+    <!-- Makeup -->
+    <div class="svc-card" style="border:1px solid rgba(201,169,110,.2);padding:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(201,169,110,.2);padding-bottom:16px;margin-bottom:20px;">
+        <span class="material-symbols-outlined" style="color:var(--gold);font-size:2rem;">face_retouching_natural</span>
+        <span style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);">من 241.5 ريال</span>
+      </div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:12px;">المكياج</h3>
+      <p style="font-family:'Cairo',sans-serif;font-size:.9rem;color:#d0c5b5;line-height:1.7;">مكياج مع رموش، بدون رموش، كونتور، رسمة حواجب وإيلاينر احترافي.</p>
+    </div>
+    <!-- Nails -->
+    <div class="svc-card" style="border:1px solid rgba(201,169,110,.2);padding:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(201,169,110,.2);padding-bottom:16px;margin-bottom:20px;">
+        <span class="material-symbols-outlined" style="color:var(--gold);font-size:2rem;">pan_tool</span>
+        <span style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);">من 23 ريال</span>
+      </div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:12px;">الأظافر</h3>
+      <p style="font-family:'Cairo',sans-serif;font-size:.9rem;color:#d0c5b5;line-height:1.7;">بديكير يد وقدم، جل، تركيب أظافر، رسم 3D، سبا خاص وبرافين.</p>
+    </div>
+    <!-- Moroccan Bath -->
+    <div class="svc-card" style="border:1px solid rgba(201,169,110,.2);padding:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(201,169,110,.2);padding-bottom:16px;margin-bottom:20px;">
+        <span class="material-symbols-outlined" style="color:var(--gold);font-size:2rem;">hot_tub</span>
+        <span style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);">من 80.5 ريال</span>
+      </div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:12px;">الحمام المغربي</h3>
+      <p style="font-family:'Cairo',sans-serif;font-size:.9rem;color:#d0c5b5;line-height:1.7;">كلاسيك، بالأعشاب المغربية، ملكي — طقوس نظافة أصيلة في ملاذ البخار.</p>
+    </div>
+    <!-- Massage -->
+    <div class="svc-card" style="border:1px solid rgba(201,169,110,.2);padding:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(201,169,110,.2);padding-bottom:16px;margin-bottom:20px;">
+        <span class="material-symbols-outlined" style="color:var(--gold);font-size:2rem;">self_improvement</span>
+        <span style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);">من 52 ريال</span>
+      </div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:12px;">المساج</h3>
+      <p style="font-family:'Cairo',sans-serif;font-size:.9rem;color:#d0c5b5;line-height:1.7;">مساج استرخائي، علاجي، للقدم، اليد، الرقبة — جلسات فردية وكاملة.</p>
+    </div>
+    <!-- Skin -->
+    <div class="svc-card" style="border:1px solid rgba(201,169,110,.2);padding:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(201,169,110,.2);padding-bottom:16px;margin-bottom:20px;">
+        <span class="material-symbols-outlined" style="color:var(--gold);font-size:2rem;">spa</span>
+        <span style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);">من 172.5 ريال</span>
+      </div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:12px;">تنظيف البشرة</h3>
+      <p style="font-family:'Cairo',sans-serif;font-size:.9rem;color:#d0c5b5;line-height:1.7;">Guniot كلاسيك، هيدرافيشيال، فيتامين C مع ماسك نضارة.</p>
+    </div>
+    <!-- Hair Removal -->
+    <div class="svc-card" style="border:1px solid rgba(201,169,110,.2);padding:32px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(201,169,110,.2);padding-bottom:16px;margin-bottom:20px;">
+        <span class="material-symbols-outlined" style="color:var(--gold);font-size:2rem;">clean_hands</span>
+        <span style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);">من 23 ريال</span>
+      </div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:12px;">إزالة الشعر</h3>
+      <p style="font-family:'Cairo',sans-serif;font-size:.9rem;color:#d0c5b5;line-height:1.7;">واكس كامل للجسم، الوجه، الأظافر الخاصة — فتله وواكس لجميع المناطق.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== STATS BAR ========== -->
+<div style="background:var(--gold);padding:20px 24px;">
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:24px 48px;font-family:'Cairo',sans-serif;font-size:.8rem;letter-spacing:.1em;color:var(--ink);font-weight:700;">
+    <span>+1,200 مراجعة</span>
+    <span>4.7 ★ تقييم</span>
+    <span>8+ خدمات</span>
+    <span>7 أيام في الأسبوع</span>
+    <span>11 ص — 10 م</span>
+  </div>
+</div>
+
+<!-- ========== PRICES ========== -->
+<section id="prices" class="section-pad reveal">
+  <div style="text-align:center;margin-bottom:48px;">
+    <p style="font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;">PRICE LIST</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);color:#eae1dd;">قائمة الأسعار الكاملة</h2>
+  </div>
+
+  <!-- Tab buttons -->
+  <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:40px;" id="tabs">
+    <button class="tab-btn active" onclick="showTab('hair')" style="padding:8px 20px;border:1px solid var(--gold);background:var(--gold);color:var(--ink);font-family:'Cairo',sans-serif;font-size:.85rem;font-weight:700;">الشعر</button>
+    <button class="tab-btn" onclick="showTab('makeup')" style="padding:8px 20px;border:1px solid rgba(201,169,110,.4);background:transparent;color:var(--gold);font-family:'Cairo',sans-serif;font-size:.85rem;font-weight:700;">المكياج</button>
+    <button class="tab-btn" onclick="showTab('nails')" style="padding:8px 20px;border:1px solid rgba(201,169,110,.4);background:transparent;color:var(--gold);font-family:'Cairo',sans-serif;font-size:.85rem;font-weight:700;">الأظافر</button>
+    <button class="tab-btn" onclick="showTab('bath')" style="padding:8px 20px;border:1px solid rgba(201,169,110,.4);background:transparent;color:var(--gold);font-family:'Cairo',sans-serif;font-size:.85rem;font-weight:700;">الحمام والمساج</button>
+    <button class="tab-btn" onclick="showTab('removal')" style="padding:8px 20px;border:1px solid rgba(201,169,110,.4);background:transparent;color:var(--gold);font-family:'Cairo',sans-serif;font-size:.85rem;font-weight:700;">الإزالة والبشرة</button>
+  </div>
+
+  <div style="max-width:720px;margin:0 auto;background:#1f1b19;border:1px solid rgba(201,169,110,.15);padding:32px;">
+
+    <!-- Hair Tab -->
+    <div class="tab-panel active" id="tab-hair">
+      <h4 style="font-family:'Cairo',sans-serif;font-size:1rem;color:var(--gold);margin-bottom:16px;font-weight:700;">✂️ القص</h4>
+      <div class="price-row"><span>قص كامل</span><span class="price-dot"></span><span class="price-val">57.5</span></div>
+      <div class="price-row"><span>قص غرة</span><span class="price-dot"></span><span class="price-val">23 – 34.5</span></div>
+      <div class="price-row"><span>قص ستايل</span><span class="price-dot"></span><span class="price-val">106</span></div>
+      <div class="price-row"><span>قص اطراف</span><span class="price-dot"></span><span class="price-val">57.5</span></div>
+      <div class="price-row"><span>قص بوي (Buzz Cut)</span><span class="price-dot"></span><span class="price-val">172.5</span></div>
+      <div class="price-row"><span>قص مكينة</span><span class="price-dot"></span><span class="price-val">121</span></div>
+
+      <h4 style="font-family:'Cairo',sans-serif;font-size:1rem;color:var(--gold);margin:24px 0 16px;font-weight:700;">💫 الاستشوار والتسريحات</h4>
+      <div class="price-row"><span>استشوار شعر قصير (من)</span><span class="price-dot"></span><span class="price-val">69</span></div>
+      <div class="price-row"><span>استشوار شعر متوسط (من)</span><span class="price-dot"></span><span class="price-val">115</span></div>
+      <div class="price-row"><span>استشوار شعر طويل (من)</span><span class="price-dot"></span><span class="price-val">172.5</span></div>
+      <div class="price-row"><span>استشوار شعر طويل جداً (من)</span><span class="price-dot"></span><span class="price-val">264.5</span></div>
+      <div class="price-row"><span>إضافة ويفي أو ستريت</span><span class="price-dot"></span><span class="price-val">+60</span></div>
+      <div class="price-row"><span>تسريحة قصيرة (من)</span><span class="price-dot"></span><span class="price-val">172.5</span></div>
+      <div class="price-row"><span>تسريحة متوسطة (من)</span><span class="price-dot"></span><span class="price-val">207</span></div>
+      <div class="price-row"><span>تسريحة طويلة (من)</span><span class="price-dot"></span><span class="price-val">230</span></div>
+      <div class="price-row"><span>تسريحة طويلة جداً (من)</span><span class="price-dot"></span><span class="price-val">368</span></div>
+      <div class="price-row"><span>ظفائر افريقية (من)</span><span class="price-dot"></span><span class="price-val">57.5</span></div>
+
+      <h4 style="font-family:'Cairo',sans-serif;font-size:1rem;color:var(--gold);margin:24px 0 16px;font-weight:700;">🎨 الصبغة والعلاجات</h4>
+      <div class="price-row"><span>صبغة جذور (182 – 230)</span><span class="price-dot"></span><span class="price-val">182 – 230</span></div>
+      <div class="price-row"><span>رينساج (حسب الطول)</span><span class="price-dot"></span><span class="price-val">180 – 350</span></div>
+      <div class="price-row"><span>صبغة لون واحد بدون تفتيح</span><span class="price-dot"></span><span class="price-val">350 – 750</span></div>
+      <div class="price-row"><span>صبغة لون واحد بتفتيح</span><span class="price-dot"></span><span class="price-val">400 – 950</span></div>
+      <div class="price-row"><span>هايلايت / لولايت</span><span class="price-dot"></span><span class="price-val">500 – 1500</span></div>
+      <div class="price-row"><span>أومبري</span><span class="price-dot"></span><span class="price-val">500 – 1500</span></div>
+      <div class="price-row"><span>خصلة ميش</span><span class="price-dot"></span><span class="price-val">57.5</span></div>
+      <div class="price-row"><span>BB Touch / بوتكس / BB كريم</span><span class="price-dot"></span><span class="price-val">540 – 1500</span></div>
+      <div class="price-row"><span>DR.AN معالج (من)</span><span class="price-dot"></span><span class="price-val">480 – 3500</span></div>
+
+      <h4 style="font-family:'Cairo',sans-serif;font-size:1rem;color:var(--gold);margin:24px 0 16px;font-weight:700;">💧 العناية بالشعر</h4>
+      <div class="price-row"><span>غسيل شعر 1</span><span class="price-dot"></span><span class="price-val">23</span></div>
+      <div class="price-row"><span>غسيل شعر 2</span><span class="price-dot"></span><span class="price-val">46</span></div>
+      <div class="price-row"><span>ترطيب كلاسيك</span><span class="price-dot"></span><span class="price-val">115</span></div>
+      <div class="price-row"><span>ترطيب عميق</span><span class="price-dot"></span><span class="price-val">172.5</span></div>
+      <div class="price-row"><span>تنظيف فروة ديتوكس</span><span class="price-dot"></span><span class="price-val">172.5</span></div>
+      <div class="price-row"><span>أمبولة نترات فضة وذهب</span><span class="price-dot"></span><span class="price-val">57.5</span></div>
+      <div class="price-row"><span>أمبولة حماية للشعر</span><span class="price-dot"></span><span class="price-val">115</span></div>
+      <div class="price-row"><span>أمبولة تساقط</span><span class="price-dot"></span><span class="price-val">138</span></div>
+    </div>
+
+    <!-- Makeup Tab -->
+    <div class="tab-panel" id="tab-makeup">
+      <h4 style="font-family:'Cairo',sans-serif;font-size:1rem;color:var(--gold);margin-bottom:16px;font-weight:700;">💄 المكياج</h4>
+      <div class="price-row"><span>مكياج مع رموش</span><span class="price-dot"></span><span class="price-val">264.5</span></div>
+      <div class="price-row"><span>مكياج بدون رموش</span><span class="price-dot"></span><span class="price-val">241.5</span></div>
+      <div class="price-row"><span>رسمة حواجب</span><span class="price-dot"></span><span class="price-val">34</span></div>
+      <div class="price-row"><span>رسمة إيلاينر</span><span class="price-dot"></span><span class="price-val">51.75</span></div>
+      <div class="price-row"><span>كونتور كامل مع تأسيس</span><span class="price-dot"></span><span class="price-val">109.25</span></div>
+      <div class="price-row"><span>تركيب رموش من العميلة</span><span class="price-dot"></span><span class="price-val">34.5</span></div>
+      <div class="price-row"><span>تركيب رموش من الصالون</span><span class="price-dot"></span><span class="price-val">57.5</span></div>
+      <div class="price-row"><span>أدوات</span><span class="price-dot"></span><span class="price-val">10</span></div>
+      <div class="price-row"><span>تسريحة أو مكياج</span><span class="price-dot"></span><span class="price-val">70</span></div>
+
+      <h4 style="font-family:'Cairo',sans-serif;font-size:1rem;color:var(--gold);margin:24px 0 16px;font-weight:700;">🖌️ الحواجب</h4>
+      <div class="price-row"><span>واكس / فتلة حواجب / موس</span><span class="price-dot"></span><span class="price-val">35</span></div>
+      <div class="price-row"><span>صبغة / تشقير حواجب</span><span class="price-dot"></span><span class="price-val">35</span></div>
+      <div class="price-row"><span>موس حواجب</span><span class="price-dot"></span><span class="price-val">11.5</span></div>
+    </div>
+
+    <!-- Nails Tab -->
+    <div class="tab-panel" id="tab-nails">
+      <h4 style="font-family:'Cairo',sans-serif;font-size:1rem;color:var(--gold);margin-bottom:16px;font-weight:700;">💅 الألوان الكلاسيك</h4>
+      <div class="price-row"><span>لون اظافر كلاسيك لليد</span><span class="price-dot"></span><span class="price-val">23</span></div>
+      <div class="price-row"><span>لون اظافر كلاسيك للقدم</span><span class="price-dot"></span><span class="price-val">40.5</span></div>
+      <div class="price-row"><span>لون فرنسي لليد</span><span class="price-dot"></span><span class="price-val">46</span></div>
+      <div class="price-row"><span>لون فرنسي للقدم</span><span class="price-dot"></span><span class="price-val">52</span></div>
+      <div class="price-row"><span>لون جل لليد</span><span class="price-dot"></span><span class="price-val">109.5</span></div>
+      <div class="price-row"><span>لون جل للقدم</span><span class="price-dot"></span><span class="price-val">132.5</span></div>
+      <div class="price-row"><span>لون جل لليد والقدم</span><span class="price-dot"></span><span class="price-val">144</span></div>
+      <div class="price-row"><span>ديزاين / ستكر للظفر الواحد</span><span class="price-dot"></span><span class="price-val">11.5</span></div>
+      <div class="price-row"><span>إزالة لون جل</span><span class="price-dot"></span><span class="price-val">63.5</span></div>
+
+      <h4 style="font-family:'Cairo',sans-serif;font-size:1rem;color:var(--gold);margin:24px 0 16px;font-weight:700;">💎 تركيب الأظافر</h4>
+      <div class="price-row"><span>جل اكستنشن طبيعي</span><span class="price-dot"></span><span class="price-val">397</span></div>
+      <div class="price-row"><span>ريفيل</span><span class="price-dot"></span><span class="price-val">230</span></div>
+      <div class="price-row"><span>أومبري لون عادي</span><span class="price-dot"></span><span class="price-val">95.5</span></div>
+      <div class="price-row"><span>أومبري لون جل</span><span class="price-dot"></span><span class="price-val">167</span></div>
+      <div class="price-row"><span>أوفرلاي طبقة حماية</span><span class="price-dot"></span><span class="price-val">253</span></div>
+      <div class="price-row"><span>فايبر قلاس طبيعي</span><span class="price-dot"></span><span class="price-val">540.5</span></div>
+      <div class="price-row"><span>رسم أظافر 3D</span><span class="price-dot"></span><span class="price-val">200</span></div>
+      <div class="price-row"><span>رسم ظفر واحد 3D</span><span class="price-dot"></span><span class="price-val">20</span></div>
+      <div class="price-row"><span>الإزالة</span><span class="price-dot"></span><span class="price-val">172.5</span></div>
+      <div class="price-row"><span>تركيب اظافر من الصالون</span><span class="price-dot"></span><span class="price-val">52</span></div>
+      <div class="price-row"><span>تركيب اظافر أسبوعية</span><span class="price-dot"></span><span class="price-val">86.5</span></div>
+
+      <h4 style="font-family:'Cairo',sans-serif;font-size:1rem;color:var(--gold);margin:24px 0 16px;font-weight:700;">✨ البديكير والسبا</h4>
+      <div class="price-row"><span>بديكير يد</span><span class="price-dot"></span><span class="price-val">69</span></div>
+      <div class="price-row"><span>بديكير قدم</span><span class="price-dot"></span><span class="price-val">92</span></div>
+      <div class="price-row"><span>بديكير يد + قدم</span><span class="price-dot"></span><span class="price-val">161</span></div>
+      <div class="price-row"><span>تنظيف جاف (روسي) يد</span><span class="price-dot"></span><span class="price-val">57.5</span></div>
+      <div class="price-row"><span>تنظيف جاف (روسي) قدم</span><span class="price-dot"></span><span class="price-val">80.5</span></div>
+      <div class="price-row"><span>سبا سبيشل لليد</span><span class="price-dot"></span><span class="price-val">110</span></div>
+      <div class="price-row"><span>سبا سبيشل للقدم</span><span class="price-dot"></span><span class="price-val">133</span></div>
+      <div class="price-row"><span>سبا سبيشل لليدين والقدمين</span><span class="price-dot"></span><span class="price-val">240</span></div>
+      <div class="price-row"><span>برافين يد</span><span class="price-dot"></span><span class="price-val">69</span></div>
+      <div class="price-row"><span>برافين قدم</span><span class="price-dot"></span><span class="price-val">92</span></div>
+      <div class="price-row"><span>برافين يد وقدم</span><span class="price-dot"></span><span class="price-val">150</span></div>
+    </div>
+
+    <!-- Bath & Massage Tab -->
+    <div class="tab-panel" id="tab-bath">
+      <h4 style="font-family:'Cairo',sans-serif;font-size:1rem;color:var(--gold);margin-bottom:16px;font-weight:700;">🛁 الحمام المغربي</h4>
+      <div class="price-row"><span>حمام مغربي كلاسيك</span><span class="price-dot"></span><span class="price-val">150</span></div>
+      <div class="price-row"><span>حمام مغربي بالأعشاب المغربية</span><span class="price-dot"></span><span class="price-val">287.5</span></div>
+      <div class="price-row"><span>حمام مغربي ملكي</span><span class="price-dot"></span><span class="price-val">379.5</span></div>
+      <div class="price-row"><span>خلطة مغربية لترطيب الجسم</span><span class="price-dot"></span><span class="price-val">29</span></div>
+      <div class="price-row"><span>الليفة</span><span class="price-dot"></span><span class="price-val">25</span></div>
+      <div class="price-row"><span>ملابس داخلية استخدام واحد</span><span class="price-dot"></span><span class="price-val">20</span></div>
+
+      <h4 style="font-family:'Cairo',sans-serif;font-size:1rem;color:var(--gold);margin:24px 0 16px;font-weight:700;">💆 المساج</h4>
+      <div class="price-row"><span>مساج للقدم</span><span class="price-dot"></span><span class="price-val">80.5</span></div>
+      <div class="price-row"><span>مساج لليد</span><span class="price-dot"></span><span class="price-val">52</span></div>
+      <div class="price-row"><span>مساج رقبة وأكتاف</span><span class="price-dot"></span><span class="price-val">103.5</span></div>
+      <div class="price-row"><span>مساج استرخاء كامل 45 دقيقة</span><span class="price-dot"></span><span class="price-val">172.5</span></div>
+      <div class="price-row"><span>مساج استرخاء كامل ساعة</span><span class="price-dot"></span><span class="price-val">230</span></div>
+      <div class="price-row"><span>مساج علاجي ساعة</span><span class="price-dot"></span><span class="price-val">287.5</span></div>
+    </div>
+
+    <!-- Removal & Skin Tab -->
+    <div class="tab-panel" id="tab-removal">
+      <h4 style="font-family:'Cairo',sans-serif;font-size:1rem;color:var(--gold);margin-bottom:16px;font-weight:700;">🫧 إزالة الشعر</h4>
+      <div class="price-row"><span>واكس يدين كاملة</span><span class="price-dot"></span><span class="price-val">92</span></div>
+      <div class="price-row"><span>واكس قدمين كاملة</span><span class="price-dot"></span><span class="price-val">115</span></div>
+      <div class="price-row"><span>واكس نص يد</span><span class="price-dot"></span><span class="price-val">46</span></div>
+      <div class="price-row"><span>واكس نص قدم</span><span class="price-dot"></span><span class="price-val">57.5</span></div>
+      <div class="price-row"><span>واكس جسم كامل</span><span class="price-dot"></span><span class="price-val">299</span></div>
+      <div class="price-row"><span>واكس إبط</span><span class="price-dot"></span><span class="price-val">40.5</span></div>
+      <div class="price-row"><span>واكس المنطقة الخاصة</span><span class="price-dot"></span><span class="price-val">253</span></div>
+      <div class="price-row"><span>واكس وجه</span><span class="price-dot"></span><span class="price-val">80.5</span></div>
+      <div class="price-row"><span>واكس / فتلة شنب</span><span class="price-dot"></span><span class="price-val">30</span></div>
+      <div class="price-row"><span>فتلة الوجه</span><span class="price-dot"></span><span class="price-val">57.5</span></div>
+      <div class="price-row"><span>واكس صدر</span><span class="price-dot"></span><span class="price-val">57.5</span></div>
+      <div class="price-row"><span>واكس ظهر</span><span class="price-dot"></span><span class="price-val">80.5</span></div>
+      <div class="price-row"><span>واكس أنف</span><span class="price-dot"></span><span class="price-val">23</span></div>
+      <div class="price-row"><span>واكس رقبة</span><span class="price-dot"></span><span class="price-val">35</span></div>
+
+      <h4 style="font-family:'Cairo',sans-serif;font-size:1rem;color:var(--gold);margin:24px 0 16px;font-weight:700;">🌸 تنظيف البشرة</h4>
+      <div class="price-row"><span>Guniot كلاسيك</span><span class="price-dot"></span><span class="price-val">172.5</span></div>
+      <div class="price-row"><span>Guniot هيدرافيشيال عميق</span><span class="price-dot"></span><span class="price-val">287.5</span></div>
+      <div class="price-row"><span>تنظيف عميق فيتامين C + ماسك</span><span class="price-dot"></span><span class="price-val">264.5</span></div>
+      <div class="price-row"><span>ماسك للبشرة</span><span class="price-dot"></span><span class="price-val">34.5</span></div>
+      <div class="price-row"><span>إسفنجة للبشرة</span><span class="price-dot"></span><span class="price-val">8</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== OFFERS ========== -->
+<section id="offers" class="section-pad reveal" style="background:#0f0d0b;">
+  <div style="text-align:center;margin-bottom:64px;">
+    <p style="font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;">EXCLUSIVE PACKAGES</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);color:#eae1dd;">العروض الحصرية</h2>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:1000px;margin:0 auto;">
+    <!-- Offer 1 -->
+    <div style="border:1px solid rgba(201,169,110,.2);padding:40px;display:flex;flex-direction:column;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:12px;">الباقة اليومية</h3>
+      <p style="font-family:'Cairo',sans-serif;font-size:.9rem;color:#d0c5b5;line-height:1.7;flex:1;margin-bottom:24px;">تصفيف + مانيكير + واكس — اشراق يومي بسعر مميز.</p>
+      <p style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);margin-bottom:24px;">100 <span style="font-size:1rem;">ريال</span></p>
+      <a href="https://wa.me/966545316367?text=أريد الاستفسار عن الباقة اليومية" style="display:block;text-align:center;border:1px solid var(--gold);color:var(--gold);padding:12px;font-family:'Cairo',sans-serif;font-size:.85rem;text-decoration:none;transition:all .25s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--ink)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">احجزي الباقة</a>
+    </div>
+
+    <!-- Offer 2 Featured -->
+    <div style="border:1px solid var(--gold);padding:40px;display:flex;flex-direction:column;position:relative;background:#1f1b19;">
+      <div class="featured-badge">الأكثر طلباً</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:12px;">خمس خدمات نخبة</h3>
+      <p style="font-family:'Cairo',sans-serif;font-size:.9rem;color:#d0c5b5;line-height:1.7;flex:1;margin-bottom:24px;">تحول كامل — شعر، أظافر، مكياج، حمام مغربي، وإزالة شعر.</p>
+      <p style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);margin-bottom:24px;">150 <span style="font-size:1rem;">ريال</span></p>
+      <a href="https://wa.me/966545316367?text=أريد الاستفسار عن باقة الخمس خدمات" style="display:block;text-align:center;background:var(--gold);color:var(--ink);padding:12px;font-family:'Cairo',sans-serif;font-size:.85rem;font-weight:700;text-decoration:none;transition:opacity .25s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">احجزي الباقة</a>
+    </div>
+
+    <!-- Offer 3 -->
+    <div style="border:1px solid rgba(201,169,110,.2);padding:40px;display:flex;flex-direction:column;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:12px;">باقة الملكة 👑</h3>
+      <p style="font-family:'Cairo',sans-serif;font-size:.9rem;color:#d0c5b5;line-height:1.7;flex:1;margin-bottom:12px;">مكياج + تسريحة + أساس جسم + بديكير مانيكير مع لون يد</p>
+      <p style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);margin-bottom:4px;">950 <span style="font-size:1rem;">ريال</span></p>
+      <p style="font-family:'Cairo',sans-serif;font-size:.8rem;color:#d0c5b5;margin-bottom:24px;">خصم 50% — الأصل 1,900 ريال</p>
+      <a href="https://wa.me/966545316367?text=أريد الاستفسار عن باقة الملكة" style="display:block;text-align:center;border:1px solid var(--gold);color:var(--gold);padding:12px;font-family:'Cairo',sans-serif;font-size:.85rem;text-decoration:none;transition:all .25s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--ink)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">احجزي الباقة</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GALLERY ========== -->
+<section id="gallery" class="section-pad reveal">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:48px;">
+    <div>
+      <p style="font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;">AESTHETIC ARCHIVE</p>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:#eae1dd;">معرض ليليان</h2>
+    </div>
+    <a href="https://instagram.com/lillian_beauty_salon1" style="color:var(--gold);text-decoration:none;font-family:'Jost',sans-serif;font-size:.8rem;display:flex;align-items:center;gap:4px;" target="_blank">
+      @lillian_beauty_salon1 <span class="material-symbols-outlined" style="font-size:16px;">north_east</span>
     </a>
-    <button class="burger" onclick="toggleMenu()" aria-label="menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<!-- MOBILE MENU -->
-<div id="mmenu">
-  <button id="mclose" onclick="toggleMenu()">✕</button>
-  <a href="#about" onclick="toggleMenu()"><span class="ar-s">عن الصالون</span><span class="en-s">About</span></a>
-  <a href="#services" onclick="toggleMenu()"><span class="ar-s">الخدمات</span><span class="en-s">Services</span></a>
-  <a href="#offers" onclick="toggleMenu()"><span class="ar-s">العروض</span><span class="en-s">Offers</span></a>
-  <a href="#reviews" onclick="toggleMenu()"><span class="ar-s">التقييمات</span><span class="en-s">Reviews</span></a>
-  <a href="#booking" onclick="toggleMenu()"><span class="ar-s">احجزي الآن</span><span class="en-s">Book Now</span></a>
-</div>
-
-<!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grain"></div>
-  <div class="hero-line"></div>
-
-  <div class="hero-content">
-    <div class="hero-left">
-      <div class="hero-eyebrow">
-        <div class="eyebrow-line"></div>
-        <span class="eyebrow-text">
-          <span class="ar-s">صالون نسائي راقٍ · حي المروة · جدة</span>
-          <span class="en-s">Luxury Ladies Salon · Al-Marwah · Jeddah</span>
-        </span>
-      </div>
-
-      <div class="ar-b">
-        <div class="hero-h-ar" style="display:block;font-family:var(--ff-ar-disp);font-size:clamp(44px,7vw,90px);font-weight:700;color:var(--white);line-height:1.1;">
-          الأناقة<br><span style="color:var(--gold)">التي تستحقينها</span>
-        </div>
-      </div>
-      <div class="en-b">
-        <h1 class="hero-h">The Art of<br><em>Feminine</em><br>Beauty</h1>
-      </div>
-
-      <div class="hero-sub-row">
-        <div class="hero-rating">
-          <div class="h-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-          <div class="h-r-num">4.7</div>
-          <div class="h-r-lbl">Google Rating</div>
-        </div>
-        <div class="h-divider"></div>
-        <div class="hero-loc">
-          <div class="h-loc-lbl"><span class="ar-s">الموقع</span><span class="en-s">Location</span></div>
-          <div class="h-loc-val" style="font-family:var(--ff-body)">
-            <span class="ar-s">فندق أراك · حي المروة</span>
-            <span class="en-s">Arak Hotel · Al-Marwah</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-right">
-      <p class="hero-desc">
-        <span class="ar-s">وجهتك الأولى للجمال والأناقة في قلب جدة — خبرة احترافية، منتجات فاخرة، وبيئة نسائية خاصة تجعلكِ تشعرين بالفارق من أول لحظة.</span>
-        <span class="en-s">Your premier beauty destination in the heart of Jeddah — professional expertise, luxury products, and a private ladies-only atmosphere where you feel the difference from the first moment.</span>
-      </p>
-      <div class="hero-cta-row">
-        <a href="#booking" class="btn-hero-primary">
-          <span class="ar-s">احجزي موعدك</span><span class="en-s">Book Appointment</span>
-        </a>
-        <a href="#services" class="btn-hero-ghost">
-          <span class="ar-s">استكشفي</span><span class="en-s">Explore</span>
-        </a>
-      </div>
-    </div>
   </div>
 
-  <div class="hero-badge">
-    <div class="badge-inner">
-      <strong>★</strong>
-      <span>4.7</span>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;" id="gallery-grid">
+    <style>@media(min-width:640px){#gallery-grid{grid-template-columns:repeat(3,1fr);}}</style>
+    <div class="img-box arch" style="aspect-ratio:4/5;">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVemKm00jJL-ALguGuukKl7XhI3OruBjNQPbF5YcjzVpYAsXqmD70Ia8AkUM3ZX1rYCEmHpwsjtkMG2E-vSN0gcn9Zf3A4b085hKwBPEuo3b-DNLiiS8WLEKML_N1rxXismQy4bufs9ArtyYZZ_hceD9a7JnrVaQRgci4kBvjSbeDFWvoq0dd9dyHHm37yYDIARN2bsA7m8nbP8RiHXj3aRDi676eXwTfeLmVon5wtlm-n8saLo7wTbPVwRlaTdf-hbMuZV_neWV_7" alt="تصفيف الشعر" style="filter:grayscale(60%);">
+      <div class="img-overlay"><span style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);letter-spacing:.1em;">تصفيف الشعر</span></div>
     </div>
-  </div>
-
-  <div class="hero-scroll">
-    <div class="scroll-track"><div class="scroll-fill"></div></div>
-    <span class="scroll-word"><span class="ar-s">تمريري</span><span class="en-s">Scroll</span></span>
+    <div class="img-box" style="aspect-ratio:1;">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFuTOmjp3I9psPHWvwCaYiWuC8wE3dOgtX_CWzyMvxUCOgm58V2RMJ34AaKrq0Kjm5j7dJ0PCtpW60BzXX_ZsPkY_YhDa0CWWFUvAj98Y3nnpGNwpYOciqqG6205qZSvqOU7g2Bz5SxBlTEtoN3P05LOJSN-qyyyBn5hNVMdHh2KxEF-0eGHxwmL6YY3IcE0s0vsplR0aaB_VMF4B82RO8HXcfBl8otR_bjGjUa-8h1jgXG1dReQQU9ysfCZwkAukJaGwY4Z4zurpF" alt="مكياج" style="filter:grayscale(60%);">
+      <div class="img-overlay"><span style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);letter-spacing:.1em;">مكياج</span></div>
+    </div>
+    <div class="img-box" style="aspect-ratio:3/4;">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOckCkg3q-USpNKlGWhxdKEnvNWRYBcoTmz57uva_KK1r1NMNcqcCqygOmfzCfaQ1xCc_y8WS-Uh2Lg-rwHepdUYSNwPLjn09S3KXvD5dGYPn8WLUZakizzQ4Wc5TTDIO5RNzVqPVsJ8lk_W8v3p-n4M5YLSIUEt08-MwE4oZYXkl7RmnRH2P-kf3iZ-J_Djk6CzhcJAwegAFUsid2PxsCQb122BjZ2T8tVY0IhG_P5VEay_iWlGYW733y8sWmilliNXm2NMExscVo" alt="أدوات" style="filter:grayscale(60%);">
+      <div class="img-overlay"><span style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);letter-spacing:.1em;">أدوات</span></div>
+    </div>
+    <div class="img-box arch" style="aspect-ratio:1;">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUtgp9TA2uSMCpcGb-2waf6hNEaon_of0Em9YDi10QlYBR81ML9WKhYmBaU3RE-BeOh5ChPezi7g-dN5vhVrL9lgVFyED84ISStA_9K4D63UMGiasR6Wx7JOqmMDpsqwdcWW38jafxPH85GbxQh0cdN0fx5JYkgL7jq22I7ijfvhy3OZ0fqBDAYXn4anSs8roATHAfYgxXR86Dl0noAfFbZS6F5iQmRADejG-jyVhaZPCba-4X19bk3zud8rDLK4-exBYulJp5or1d" alt="أظافر" style="filter:grayscale(60%);">
+      <div class="img-overlay"><span style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);letter-spacing:.1em;">أظافر</span></div>
+    </div>
+    <div class="img-box" style="aspect-ratio:1;">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ6qYh3zEPYZGPmjPGlVBlttXE3IXeD519AKlrWLAZobKVXSeKpZgm-Vt875bHTPI9GLz_VtZroYWMISBhOCYKEg3yHV1dMBAchVTVLHYEbBqo3aRQTO0k8za1yYWtT4rtEqsizdt9LHaZn-NObTJoXc23BmNz3ItBsIXx72jYKOQCUqN8ZmVDHg-YlhVz9pqUyhqgx3aJaaa8jMDzj7_wszfkJFgAqJS4VLSRK8qZXa18ViMeCceJ4r1MMAEwn7oGSHTs8SR5g_qm" alt="حمام" style="filter:grayscale(60%);">
+      <div class="img-overlay"><span style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);letter-spacing:.1em;">الحمام المغربي</span></div>
+    </div>
+    <div class="img-box arch" style="aspect-ratio:4/5;">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRUMJCtg2jcGZxs1WHRbkDEe_Il-sqX8oNkcHly_pn0gBQXXLJfjNwxCmRgJYETdKV2ntc_D5J4AAzy92SaQ2zt8WJyupEq0xDKNT75VAYsGR6SkiC9P_reEd-DEL0G0656BOs9IXy2pYD4tFm20-2_oYGo-NMWRm0lBHpDhCHQwToxZVQz8KQKoR72wVY4fT0DKnG1-Xj4UaUYx4GKUCmLlbQUTi60RET6rW-ZrNujTfO4sC9sTCqQwdlUrRMZ0NSXe_tLHlQuCLO" alt="ليليان" style="filter:grayscale(60%);">
+      <div class="img-overlay"><span style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);letter-spacing:.1em;">روح ليليان</span></div>
+    </div>
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap" aria-hidden="true">
-  <div class="marquee-track">
-    <span class="marquee-item"><span class="ar-s">تصفيف الشعر</span><span class="en-s">Hair Styling</span></span>
-    <span class="marquee-item"><span class="ar-s">مكياج احترافي</span><span class="en-s">Professional Makeup</span></span>
-    <span class="marquee-item"><span class="ar-s">حمام مغربي</span><span class="en-s">Moroccan Bath</span></span>
-    <span class="marquee-item"><span class="ar-s">مانيكير وبديكير</span><span class="en-s">Manicure & Pedicure</span></span>
-    <span class="marquee-item"><span class="ar-s">صباغة الشعر</span><span class="en-s">Hair Coloring</span></span>
-    <span class="marquee-item"><span class="ar-s">إزالة الشعر</span><span class="en-s">Hair Removal</span></span>
-    <span class="marquee-item"><span class="ar-s">تصفيف الشعر</span><span class="en-s">Hair Styling</span></span>
-    <span class="marquee-item"><span class="ar-s">مكياج احترافي</span><span class="en-s">Professional Makeup</span></span>
-    <span class="marquee-item"><span class="ar-s">حمام مغربي</span><span class="en-s">Moroccan Bath</span></span>
-    <span class="marquee-item"><span class="ar-s">مانيكير وبديكير</span><span class="en-s">Manicure & Pedicure</span></span>
-    <span class="marquee-item"><span class="ar-s">صباغة الشعر</span><span class="en-s">Hair Coloring</span></span>
-    <span class="marquee-item"><span class="ar-s">إزالة الشعر</span><span class="en-s">Hair Removal</span></span>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<section class="about" id="about">
-  <div class="ctr">
-    <div class="about-grid">
-      <div class="about-img-stack rv-l">
-        <div class="aimg-main">💆‍♀️</div>
-        <div class="aimg-accent">
-          <div class="aa-num">4.7</div>
-          <div class="aa-lbl"><span class="ar-s">تقييم عملاءنا</span><span class="en-s">Client Rating</span></div>
-        </div>
-        <div class="aimg-tag">
-          <div class="at-score">+1,200</div>
-          <div class="at-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-          <div class="at-lbl"><span class="ar-s">تقييم موثّق</span><span class="en-s">Verified Reviews</span></div>
-        </div>
-      </div>
-
-      <div class="rv-r">
-        <div class="lbl"><span class="ar-s">من نحن</span><span class="en-s">Our Story</span></div>
-        <div class="ar-b"><div class="h2-ar">صالون ليليان<br>الأنيقة — جدة</div></div>
-        <div class="en-b"><div class="h2-en">Lillian<br><em>Elegant</em> Salon</div></div>
-        <p class="body-txt" style="margin:22px 0 16px">
-          <span class="ar-s">في صالون ليليان، نؤمن بأن الجمال الحقيقي يولد من الاهتمام بأدق التفاصيل. فريقنا المحترف مستعد لمنحكِ تجربة لا تُنسى.</span>
-          <span class="en-s">At Lillian, we believe true beauty is born from attention to the finest details. Our professional team is ready to give you an unforgettable experience.</span>
-        </p>
-        <p class="body-txt">
-          <span class="ar-s">موقعنا في حي المروة بفندق أراك يجعل الوصول إلينا سهلاً ومريحاً، ونستقبل عملاءنا كل يوم من السبت إلى الجمعة.</span>
-          <span class="en-s">Our location in Al-Marwah at Arak Hotel makes us easy to reach, and we welcome clients every day Saturday through Friday.</span>
-        </p>
-
-        <div class="about-feats">
-          <div class="af rv"><div class="af-icon">👑</div><div class="af-title"><span class="ar-s">فريق محترف</span><span class="en-s">Expert Team</span></div><div class="af-desc"><span class="ar-s">خبرة رفيعة وتطوير مستمر</span><span class="en-s">High expertise & continuous development</span></div></div>
-          <div class="af rv"><div class="af-icon">✨</div><div class="af-title"><span class="ar-s">منتجات عالمية</span><span class="en-s">Global Brands</span></div><div class="af-desc"><span class="ar-s">أفضل ماركات التجميل العالمية</span><span class="en-s">World's finest beauty brands</span></div></div>
-          <div class="af rv"><div class="af-icon">🔒</div><div class="af-title"><span class="ar-s">خصوصية تامة</span><span class="en-s">Full Privacy</span></div><div class="af-desc"><span class="ar-s">بيئة نسائية راقية ومريحة</span><span class="en-s">Elegant ladies-only environment</span></div></div>
-          <div class="af rv"><div class="af-icon">📍</div><div class="af-title"><span class="ar-s">موقع مميز</span><span class="en-s">Prime Location</span></div><div class="af-desc"><span class="ar-s">حي المروة، قلب جدة</span><span class="en-s">Al-Marwah, heart of Jeddah</span></div></div>
-        </div>
+<!-- ========== ABOUT ========== -->
+<section id="about" class="section-pad reveal" style="background:#0f0d0b;">
+  <div style="display:grid;grid-template-columns:1fr;gap:48px;align-items:center;max-width:1100px;margin:0 auto;" id="about-grid">
+    <style>@media(min-width:768px){#about-grid{grid-template-columns:1fr 1fr;}}</style>
+    <div class="img-box arch" style="aspect-ratio:3/4;max-width:420px;margin:0 auto;width:100%;">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA98QiKpT1znk-zyRETlZmkf9NxpSy1uFlt692oGVPizI7lFaqzLB2A-oIiz59d_h_3KXa_jCNAoQj_a1bXByRWl0rx32k4mWqx89rrfVqiUcd3qgqakz2GdBdqws_1hLktMRYa541p0iGdbdBX-NBjB0MHDJiDKAMHCHQtN0wa5QswdaaX6g7bV-RmaulKmQz5_QCqcuBsWCYnzOSkmer_zdTmAQuwb31EVNQ8xnDwXkouY85HvFdBxlcdp1QcCldG-O00wmJG6NIU" alt="صالون ليليان">
+    </div>
+    <div>
+      <p style="font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;">OUR STORY</p>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:#eae1dd;margin-bottom:24px;">نصنع الجمال بدقة</h2>
+      <p style="font-family:'Cairo',sans-serif;font-size:.95rem;color:#d0c5b5;line-height:1.9;margin-bottom:32px;">في ليليان، نؤمن بأن الجمال فن معماري. كل خدمة تجربة منسقة بعناية لتمكين المرأة العصرية من خلال الفخامة والخصوصية. ملاذنا في فندق أراك يوفر الخصوصية والعناية الفائقة التي تستحقينها.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div><div style="width:32px;height:1px;background:var(--gold);margin-bottom:12px;"></div><p style="font-family:'Cairo',sans-serif;font-size:.85rem;color:#eae1dd;font-weight:700;margin-bottom:4px;">فريق خبراء</p><p style="font-family:'Cairo',sans-serif;font-size:.8rem;color:#d0c5b5;">متخصصات في أرقى أنواع العناية</p></div>
+        <div><div style="width:32px;height:1px;background:var(--gold);margin-bottom:12px;"></div><p style="font-family:'Cairo',sans-serif;font-size:.85rem;color:#eae1dd;font-weight:700;margin-bottom:4px;">منتجات فاخرة</p><p style="font-family:'Cairo',sans-serif;font-size:.8rem;color:#d0c5b5;">أرقى العلامات العالمية فقط</p></div>
+        <div><div style="width:32px;height:1px;background:var(--gold);margin-bottom:12px;"></div><p style="font-family:'Cairo',sans-serif;font-size:.85rem;color:#eae1dd;font-weight:700;margin-bottom:4px;">خصوصية تامة</p><p style="font-family:'Cairo',sans-serif;font-size:.8rem;color:#d0c5b5;">مناطق خاصة لجميع الخدمات</p></div>
+        <div><div style="width:32px;height:1px;background:var(--gold);margin-bottom:12px;"></div><p style="font-family:'Cairo',sans-serif;font-size:.85rem;color:#eae1dd;font-weight:700;margin-bottom:4px;">موقع متميز</p><p style="font-family:'Cairo',sans-serif;font-size:.8rem;color:#d0c5b5;">فندق أراك، حي المروة، جدة</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="services" id="services">
-  <div class="ctr">
-    <div class="svc-header">
-      <div class="rv">
-        <div class="lbl"><span class="ar-s">خدماتنا</span><span class="en-s">Services</span></div>
-        <div class="ar-b"><div class="h2-ar">كل ما تحتاجينه<br>في مكان واحد</div></div>
-        <div class="en-b"><div class="h2-en">Everything you<br>need, <em>here</em></div></div>
-      </div>
-      <div class="svc-header-r rv">
-        <p class="body-txt" style="color:rgba(255,255,255,.35);max-width:340px">
-          <span class="ar-s">خدمات متكاملة بأعلى معايير الجودة، مقدمة من فريق متخصص يضع راحتكِ في المقام الأول.</span>
-          <span class="en-s">Comprehensive services with the highest quality standards, delivered by a specialized team that puts your comfort first.</span>
-        </p>
-        <a href="#booking" class="btn-hero-primary" style="margin-top:18px;font-size:9.5px;padding:13px 28px">
-          <span class="ar-s">احجزي الآن</span><span class="en-s">Book Now</span>
-        </a>
-      </div>
+<!-- ========== REVIEWS ========== -->
+<section class="section-pad reveal">
+  <div style="text-align:center;margin-bottom:64px;">
+    <p style="font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;">VOICES OF BEAUTY</p>
+    <div style="font-family:'Playfair Display',serif;font-size:6rem;color:var(--gold);line-height:1;">4.7</div>
+    <div style="color:var(--gold);font-size:1.5rem;margin:8px 0;">★★★★½</div>
+    <p style="font-family:'Cairo',sans-serif;font-size:.9rem;color:#d0c5b5;">بناءً على 1,232 تقييم موثق</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:960px;margin:0 auto;">
+    <div style="border-right:2px solid rgba(201,169,110,.35);padding-right:24px;">
+      <div style="color:var(--gold);margin-bottom:12px;">★★★★★</div>
+      <p style="font-family:'Cairo',sans-serif;font-size:.95rem;color:#eae1dd;line-height:1.8;margin-bottom:16px;font-style:italic;">"أرقى تجربة في جدة. الخصوصية والاحترافية لا يعلى عليها."</p>
+      <p style="font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.15em;color:var(--gold);">سارة العتيبي</p>
     </div>
-
-    <div class="svc-grid">
-      <div class="svc-card rv">
-        <div class="svc-num">01</div>
-        <span class="svc-icon">💇‍♀️</span>
-        <div class="svc-name"><span class="ar-s">تصفيف الشعر</span><span class="en-s">Hair Styling</span></div>
-        <p class="svc-desc"><span class="ar-s">قص احترافي وبلو درايد وتسريحات لكل المناسبات بأيدٍ خبيرة.</span><span class="en-s">Professional cut, blow dry, and styles for every occasion.</span></p>
-        <div class="svc-price">SAR 50 <small><span class="ar-s">يبدأ من</span><span class="en-s">Starting</span></small></div>
-        <span class="svc-arrow">→</span>
-      </div>
-      <div class="svc-card rv">
-        <div class="svc-num">02</div>
-        <span class="svc-icon">🎨</span>
-        <div class="svc-name"><span class="ar-s">صباغة الشعر</span><span class="en-s">Hair Coloring</span></div>
-        <p class="svc-desc"><span class="ar-s">أحدث تقنيات الصبغ بأجود منتجات عالمية لألوان مشرقة تدوم.</span><span class="en-s">Latest techniques with premium products for vibrant, lasting color.</span></p>
-        <div class="svc-price">SAR 150 <small><span class="ar-s">يبدأ من</span><span class="en-s">Starting</span></small></div>
-        <span class="svc-arrow">→</span>
-      </div>
-      <div class="svc-card rv">
-        <div class="svc-num">03</div>
-        <span class="svc-icon">💄</span>
-        <div class="svc-name"><span class="ar-s">مكياج احترافي</span><span class="en-s">Professional Makeup</span></div>
-        <p class="svc-desc"><span class="ar-s">مكياج فني لجميع المناسبات يبرز جمالكِ الطبيعي بتوقيع راقٍ.</span><span class="en-s">Artistic makeup for all occasions, highlighting your natural beauty.</span></p>
-        <div class="svc-price">SAR 120 <small><span class="ar-s">يبدأ من</span><span class="en-s">Starting</span></small></div>
-        <span class="svc-arrow">→</span>
-      </div>
-      <div class="svc-card rv">
-        <div class="svc-num">04</div>
-        <span class="svc-icon">💅</span>
-        <div class="svc-name"><span class="ar-s">مانيكير وبديكير</span><span class="en-s">Manicure & Pedicure</span></div>
-        <p class="svc-desc"><span class="ar-s">عناية كاملة بأظافرك مع أجود الطلاءات وأحدث التصاميم العصرية.</span><span class="en-s">Complete nail care with the finest polish and modern designs.</span></p>
-        <div class="svc-price">SAR 40 <small><span class="ar-s">يبدأ من</span><span class="en-s">Starting</span></small></div>
-        <span class="svc-arrow">→</span>
-      </div>
-      <div class="svc-card rv">
-        <div class="svc-num">05</div>
-        <span class="svc-icon">🛁</span>
-        <div class="svc-name"><span class="ar-s">الحمام المغربي</span><span class="en-s">Moroccan Bath</span></div>
-        <p class="svc-desc"><span class="ar-s">تجربة استرخاء فاخرة بتقليد مغربي أصيل للعناية العميقة بالبشرة.</span><span class="en-s">Luxurious relaxation with authentic Moroccan tradition for deep skin care.</span></p>
-        <div class="svc-price">SAR 100 <small><span class="ar-s">يبدأ من</span><span class="en-s">Starting</span></small></div>
-        <span class="svc-arrow">→</span>
-      </div>
-      <div class="svc-card rv">
-        <div class="svc-num">06</div>
-        <span class="svc-icon">🌿</span>
-        <div class="svc-name"><span class="ar-s">إزالة الشعر</span><span class="en-s">Hair Removal</span></div>
-        <p class="svc-desc"><span class="ar-s">فتلة وواكس بأعلى معايير النظافة لبشرة ناعمة كالحرير في كل وقت.</span><span class="en-s">Threading and wax with the highest hygiene standards for silk-smooth skin.</span></p>
-        <div class="svc-price">SAR 10 <small><span class="ar-s">يبدأ من</span><span class="en-s">Starting</span></small></div>
-        <span class="svc-arrow">→</span>
-      </div>
+    <div style="border-right:2px solid rgba(201,169,110,.35);padding-right:24px;">
+      <div style="color:var(--gold);margin-bottom:12px;">★★★★★</div>
+      <p style="font-family:'Cairo',sans-serif;font-size:.95rem;color:#eae1dd;line-height:1.8;margin-bottom:16px;font-style:italic;">"الحمام المغربي هنا تجربة لا تُنسى. هروب حقيقي من صخب المدينة."</p>
+      <p style="font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.15em;color:var(--gold);">ليلى أحمد</p>
+    </div>
+    <div style="border-right:2px solid rgba(201,169,110,.35);padding-right:24px;">
+      <div style="color:var(--gold);margin-bottom:12px;">★★★★★</div>
+      <p style="font-family:'Cairo',sans-serif;font-size:.95rem;color:#eae1dd;line-height:1.8;margin-bottom:16px;font-style:italic;">"المكياج كان فوق التوقعات والمكان راقي جداً. بالتأكيد سأعود."</p>
+      <p style="font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.15em;color:var(--gold);">نورة المطيري</p>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-strip">
-  <div class="stats-inner">
-    <div class="stat-item rv"><div class="stat-n">1.2K+</div><div class="stat-l"><span class="ar-s">تقييم موثّق على Google</span><span class="en-s">Verified Google Reviews</span></div></div>
-    <div class="stat-item rv"><div class="stat-n">4.7★</div><div class="stat-l"><span class="ar-s">متوسط التقييم العام</span><span class="en-s">Overall Rating</span></div></div>
-    <div class="stat-item rv"><div class="stat-n">6+</div><div class="stat-l"><span class="ar-s">خدمات متخصصة</span><span class="en-s">Specialized Services</span></div></div>
-    <div class="stat-item rv"><div class="stat-n">7</div><div class="stat-l"><span class="ar-s">أيام في الأسبوع</span><span class="en-s">Days a Week</span></div></div>
-  </div>
-</div>
-
-<!-- OFFERS -->
-<section class="offers" id="offers">
-  <div class="ctr">
-    <div style="text-align:center;margin-bottom:20px" class="rv">
-      <div class="lbl" style="justify-content:center"><span class="ar-s">عروضنا الحصرية</span><span class="en-s">Exclusive Offers</span></div>
-      <div class="ar-b"><div class="h2-ar">باقات<br>لا تقاوم</div></div>
-      <div class="en-b"><div class="h2-en">Packages you<br>cannot <em>resist</em></div></div>
-    </div>
-
-    <div class="off-grid">
-      <div class="off-card rv">
-        <div class="off-badge"><span class="ar-s">الأكثر طلباً</span><span class="en-s">Most Popular</span></div>
-        <div class="off-name"><span class="ar-s">باقة اليومية</span><span class="en-s">Daily Package</span></div>
-        <div class="off-note"><span class="ar-s">٤ خدمات مميزة</span><span class="en-s">4 premium services</span></div>
-        <div class="off-big"><small>SAR </small>100</div>
-        <div class="off-sep"></div>
-        <ul class="off-ul">
-          <li class="off-li"><span class="ar-s">فتلة كاملة</span><span class="en-s">Full Threading</span></li>
-          <li class="off-li"><span class="ar-s">واكس</span><span class="en-s">Wax</span></li>
-          <li class="off-li"><span class="ar-s">مانيكير</span><span class="en-s">Manicure</span></li>
-          <li class="off-li"><span class="ar-s">بديكير</span><span class="en-s">Pedicure</span></li>
-        </ul>
-        <a href="#booking" class="btn-off solid"><span class="ar-s">احجزي الباقة</span><span class="en-s">Book Package</span></a>
-      </div>
-
-      <div class="off-card featured rv">
-        <div class="off-badge rose">💎 <span class="ar-s">الأفضل قيمة</span><span class="en-s">Best Value</span></div>
-        <div class="off-name"><span class="ar-s">باقة الخمس خدمات</span><span class="en-s">Five-Service Package</span></div>
-        <div class="off-note"><span class="ar-s">٥ خدمات فاخرة</span><span class="en-s">5 luxury services</span></div>
-        <div class="off-big"><small>SAR </small>150</div>
-        <div class="off-sep"></div>
-        <ul class="off-ul">
-          <li class="off-li"><span class="ar-s">كل خدمات الباقة اليومية</span><span class="en-s">All Daily Package services</span></li>
-          <li class="off-li"><span class="ar-s">قص أطراف الشعر</span><span class="en-s">Hair Trim</span></li>
-          <li class="off-li"><span class="ar-s">صبغة شعر</span><span class="en-s">Hair Color</span></li>
-        </ul>
-        <a href="#booking" class="btn-off dark"><span class="ar-s">احجزي الباقة</span><span class="en-s">Book Package</span></a>
-      </div>
-
-      <div class="off-card rv">
-        <div class="off-badge" style="background:var(--cream2);color:var(--ink)">🔥 <span class="ar-s">خصم حتى ٥٠٪</span><span class="en-s">Up to 50% OFF</span></div>
-        <div class="off-name"><span class="ar-s">عرض الخصم الكبير</span><span class="en-s">Mega Discount</span></div>
-        <div class="off-note"><span class="ar-s">على جميع الخدمات</span><span class="en-s">On all services</span></div>
-        <div class="off-big" style="font-size:46px;"><span class="ar-s">٥٠٪</span><span class="en-s">50%</span></div>
-        <div class="off-sep"></div>
-        <ul class="off-ul">
-          <li class="off-li"><span class="ar-s">فواتير أعلى من ٤٩٥ ريال</span><span class="en-s">Bills over SAR 495</span></li>
-          <li class="off-li"><span class="ar-s">خصم إضافي على الخدمات</span><span class="en-s">Additional service discount</span></li>
-          <li class="off-li"><span class="ar-s">عروض متجددة باستمرار</span><span class="en-s">Continuously updated deals</span></li>
-        </ul>
-        <a href="https://wa.me/966545316367" class="btn-off outline" target="_blank"><span class="ar-s">تواصلي معنا</span><span class="en-s">Contact Us</span></a>
+<!-- ========== BOOKING & CONTACT ========== -->
+<section id="contact" class="section-pad reveal" style="background:#0f0d0b;border-top:1px solid rgba(201,169,110,.1);">
+  <div style="display:grid;grid-template-columns:1fr;gap:48px;max-width:1000px;margin:0 auto;" id="contact-grid">
+    <style>@media(min-width:768px){#contact-grid{grid-template-columns:1fr 1fr;}}</style>
+    <!-- Info -->
+    <div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.5rem);color:#eae1dd;margin-bottom:40px;">احجزي موعدك</h2>
+      <div style="display:flex;flex-direction:column;gap:28px;">
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <span class="material-symbols-outlined" style="color:var(--gold);margin-top:2px;">phone_in_talk</span>
+          <div><p style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);letter-spacing:.1em;margin-bottom:4px;">الهاتف</p><p style="font-family:'Cairo',sans-serif;color:#eae1dd;">054 531 6367</p></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <span class="material-symbols-outlined" style="color:var(--gold);margin-top:2px;">location_on</span>
+          <div><p style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);letter-spacing:.1em;margin-bottom:4px;">العنوان</p><p style="font-family:'Cairo',sans-serif;color:#eae1dd;">فندق أراك، حي المروة، جدة</p></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <span class="material-symbols-outlined" style="color:var(--gold);margin-top:2px;">schedule</span>
+          <div><p style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);letter-spacing:.1em;margin-bottom:4px;">ساعات العمل</p><p style="font-family:'Cairo',sans-serif;color:#eae1dd;">يومياً: 11:00 ص — 10:00 م</p></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <span class="material-symbols-outlined" style="color:var(--gold);margin-top:2px;">camera</span>
+          <div><p style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);letter-spacing:.1em;margin-bottom:4px;">انستقرام</p><a href="https://instagram.com/lillian_beauty_salon1" style="font-family:'Jost',sans-serif;color:#eae1dd;text-decoration:none;" target="_blank">@lillian_beauty_salon1</a></div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- REVIEWS -->
-<section class="reviews" id="reviews">
-  <div class="ctr">
-    <div class="rev-head">
-      <div class="rv">
-        <div class="lbl"><span class="ar-s">آراء عملاءنا</span><span class="en-s">Client Reviews</span></div>
-        <div class="ar-b"><div class="h2-ar">ماذا تقول<br>عملاؤنا؟</div></div>
-        <div class="en-b"><div class="h2-en">What our clients<br><em>say</em></div></div>
-        <p class="body-txt" style="margin-top:18px;max-width:400px">
-          <span class="ar-s">تقييماتهن هي شهادتنا الحقيقية — أكثر من ألف رأي موثّق على Google.</span>
-          <span class="en-s">Their ratings are our real testimony — over a thousand verified reviews on Google.</span>
-        </p>
-      </div>
-      <div class="rev-head-r rv">
-        <div class="overall-score">4.7</div>
-        <div class="os-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <div class="os-lbl"><span class="ar-s">مبني على ١٬٢٣٢ تقييم على Google</span><span class="en-s">Based on 1,232 Google reviews</span></div>
-      </div>
-    </div>
-    <div class="rev-grid">
-      <div class="rev-card rv">
-        <div class="rev-quote-mark">"</div>
-        <p class="rev-text"><span class="ar-s">تجربة لا تُنسى! الصالون نظيف جداً والموظفات محترفات ومهنيات. الحمام المغربي كان رائعاً وشعرت بالانتعاش الحقيقي. سأعود وأوصي به الجميع.</span><span class="en-s">An unforgettable experience! The salon is very clean and the staff are professional. The Moroccan bath was amazing and I felt truly refreshed. I will return and recommend it to everyone.</span></p>
-        <div class="rev-foot">
-          <div class="rev-av">👩</div>
+    <!-- Form -->
+    <div>
+      <p style="font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--gold);letter-spacing:.12em;margin-bottom:32px;">أرسلي بياناتك وسنتواصل معك عبر واتساب</p>
+      <div style="display:flex;flex-direction:column;gap:24px;" id="bookForm">
+        <div>
+          <label style="display:block;font-family:'Cairo',sans-serif;font-size:.72rem;color:var(--gold);letter-spacing:.1em;margin-bottom:8px;">الاسم الكامل</label>
+          <input id="f-name" class="form-field" type="text" placeholder="اسمك الكريم">
+        </div>
+        <div>
+          <label style="display:block;font-family:'Cairo',sans-serif;font-size:.72rem;color:var(--gold);letter-spacing:.1em;margin-bottom:8px;">رقم الجوال</label>
+          <input id="f-phone" class="form-field" type="tel" placeholder="05xxxxxxxx">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
           <div>
-            <div class="rev-name"><span class="ar-s">نور الجوهري</span><span class="en-s">Nour Al-Jawhari</span></div>
-            <div class="rev-date">Google Review ★★★★★</div>
+            <label style="display:block;font-family:'Cairo',sans-serif;font-size:.72rem;color:var(--gold);letter-spacing:.1em;margin-bottom:8px;">الخدمة</label>
+            <select id="f-service" class="form-field">
+              <option>تصفيف الشعر</option>
+              <option>المكياج</option>
+              <option>الحمام المغربي</option>
+              <option>مانيكير وباديكير</option>
+              <option>صبغة الشعر</option>
+              <option>إزالة الشعر</option>
+              <option>تنظيف البشرة</option>
+              <option>المساج</option>
+              <option>باقة كاملة</option>
+            </select>
           </div>
-        </div>
-      </div>
-      <div class="rev-card rv">
-        <div class="rev-quote-mark">"</div>
-        <p class="rev-text"><span class="ar-s">أفضل صالون في حي المروة بلا منازع. المكياج كان فنياً جداً وناعماً جداً. كنت مبسوطة جداً من النتيجة في حفل خطوبتي — شكراً ليليان الأنيقة!</span><span class="en-s">Absolutely the best salon in Al-Marwah. The makeup was incredibly artistic and soft. I was so happy with the result at my engagement party — thank you Lillian Elegant!</span></p>
-        <div class="rev-foot">
-          <div class="rev-av" style="background:var(--rose)">👩</div>
           <div>
-            <div class="rev-name"><span class="ar-s">سارة العمري</span><span class="en-s">Sarah Al-Omari</span></div>
-            <div class="rev-date">Google Review ★★★★★</div>
+            <label style="display:block;font-family:'Cairo',sans-serif;font-size:.72rem;color:var(--gold);letter-spacing:.1em;margin-bottom:8px;">التاريخ</label>
+            <input id="f-date" class="form-field" type="date">
           </div>
         </div>
-      </div>
-      <div class="rev-card rv">
-        <div class="rev-quote-mark">"</div>
-        <p class="rev-text"><span class="ar-s">الأسعار معقولة جداً والخدمة ممتازة. باقة الـ١٠٠ ريال حقيقية وشاملة — ٤ خدمات بسعر خيالي. وقت الانتظار قصير وهذا يعني الكثير بالنسبة لي.</span><span class="en-s">Very reasonable prices and excellent service. The SAR 100 package is real and comprehensive — 4 services for an incredible price. Short wait time which means a lot to me.</span></p>
-        <div class="rev-foot">
-          <div class="rev-av" style="background:var(--gold3)">👩</div>
-          <div>
-            <div class="rev-name"><span class="ar-s">ريم المطيري</span><span class="en-s">Reem Al-Mutairi</span></div>
-            <div class="rev-date">Google Review ★★★★★</div>
-          </div>
+        <div>
+          <label style="display:block;font-family:'Cairo',sans-serif;font-size:.72rem;color:var(--gold);letter-spacing:.1em;margin-bottom:8px;">ملاحظات</label>
+          <textarea id="f-notes" class="form-field" rows="3" placeholder="أي طلبات خاصة..." style="resize:none;"></textarea>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<section class="gallery-sec" id="gallery">
-  <div class="ctr">
-    <div style="display:grid;grid-template-columns:1fr 1fr;align-items:flex-end;gap:48px;margin-bottom:52px">
-      <div class="rv">
-        <div class="lbl"><span class="ar-s">معرض الأعمال</span><span class="en-s">Gallery</span></div>
-        <div class="ar-b"><div class="h2-ar">لمسات<br>من إبداعنا</div></div>
-        <div class="en-b"><div class="h2-en">Touches of<br><em>our craft</em></div></div>
-      </div>
-      <div class="rv" style="text-align:right">
-        <p class="body-txt" style="max-width:360px;margin-inline-start:auto">
-          <span class="ar-s">كل تفصيلة تعكس شغفنا بالجمال — من تسريحة الشعر إلى آخر لمسة في المكياج.</span>
-          <span class="en-s">Every detail reflects our passion for beauty — from the hairstyle to the last touch of makeup.</span>
-        </p>
-        <a href="https://instagram.com/lillian_beauty_salon1" target="_blank" class="btn-hero-ghost" style="margin-top:18px;font-size:9px;padding:11px 24px;display:inline-block">
-          <span class="ar-s">تابعينا على Instagram</span><span class="en-s">Follow on Instagram</span>
-        </a>
-      </div>
-    </div>
-
-    <div class="gal-grid">
-      <div class="gal-item gal-tall rv">
-        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80&fit=crop" alt="تسريحة شعر" loading="lazy">
-        <div class="gal-over"><span class="ar-s">تصفيف الشعر</span><span class="en-s">Hair Styling</span></div>
-      </div>
-      <div class="gal-col">
-        <div class="gal-item rv">
-          <img src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=600&q=80&fit=crop" alt="مكياج" loading="lazy">
-          <div class="gal-over"><span class="ar-s">مكياج احترافي</span><span class="en-s">Professional Makeup</span></div>
-        </div>
-        <div class="gal-item rv">
-          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80&fit=crop" alt="مانيكير" loading="lazy">
-          <div class="gal-over"><span class="ar-s">مانيكير</span><span class="en-s">Manicure</span></div>
-        </div>
-      </div>
-      <div class="gal-item gal-tall rv">
-        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80&fit=crop" alt="صالون" loading="lazy">
-        <div class="gal-over"><span class="ar-s">أجواء الصالون</span><span class="en-s">Salon Atmosphere</span></div>
-      </div>
-      <div class="gal-item rv">
-        <img src="https://images.unsplash.com/photo-1500840216050-6ffa99d75160?w=600&q=80&fit=crop" alt="صباغة" loading="lazy">
-        <div class="gal-over"><span class="ar-s">صباغة الشعر</span><span class="en-s">Hair Coloring</span></div>
-      </div>
-      <div class="gal-item rv">
-        <img src="https://images.unsplash.com/photo-1519415943484-9fa1873496d4?w=600&q=80&fit=crop" alt="حمام مغربي" loading="lazy">
-        <div class="gal-over"><span class="ar-s">العناية بالبشرة</span><span class="en-s">Skin Care</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BOOKING -->
-<section class="booking" id="booking">
-  <div class="ctr">
-    <div class="booking-grid">
-      <div class="rv-l">
-        <div class="lbl"><span class="ar-s">تواصلي معنا</span><span class="en-s">Get in Touch</span></div>
-        <div class="ar-b"><div class="h2-ar">نسعد بخدمتكِ<br><span style="color:var(--gold)">في كل وقت</span></div></div>
-        <div class="en-b"><div class="h2-en">Delighted to<br>serve <em>you</em></div></div>
-        <p class="booking-body">
-          <span class="ar-s">احجزي موعدك عبر النموذج أو تواصلي معنا مباشرة عبر الواتساب — نرد فوراً وبكل سرور.</span>
-          <span class="en-s">Book via the form or reach us directly on WhatsApp — we respond immediately and with pleasure.</span>
-        </p>
-        <div class="contact-items">
-          <div class="ci">
-            <div class="ci-icon">📞</div>
-            <div><div class="ci-label"><span class="ar-s">هاتف</span><span class="en-s">Phone</span></div><a href="tel:0545316367" class="ci-val" dir="ltr">054 531 6367</a></div>
-          </div>
-          <div class="ci">
-            <div class="ci-icon"><svg style="width:20px;height:20px;fill:rgba(255,255,255,.65)" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></div>
-            <div><div class="ci-label">WhatsApp</div><a href="https://wa.me/966545316367" class="ci-val" target="_blank">+966 54 531 6367</a></div>
-          </div>
-          <div class="ci">
-            <div class="ci-icon">📸</div>
-            <div><div class="ci-label">Instagram</div><a href="https://instagram.com/lillian_beauty_salon1" class="ci-val" target="_blank">@lillian_beauty_salon1</a></div>
-          </div>
-          <div class="ci">
-            <div class="ci-icon">📍</div>
-            <div>
-              <div class="ci-label"><span class="ar-s">الموقع</span><span class="en-s">Location</span></div>
-              <span class="ci-val" style="font-size:12.5px;line-height:1.6;display:block">
-                <span class="ar-s">شارع إبراهيم محمد عبد الوهاب<br>فندق أراك · حي المروة · جدة ٢٣٥٤٥</span>
-                <span class="en-s">Ibrahim M. Abdulwahhab St.<br>Arak Hotel · Al-Marwah · Jeddah 23545</span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="hours-section">
-          <div class="hours-title"><span class="ar-s">مواعيد العمل</span><span class="en-s">Working Hours</span></div>
-          <div class="h-row">
-            <span class="h-day"><span class="ar-s">السبت — الخميس</span><span class="en-s">Saturday — Thursday</span></span>
-            <span class="h-time"><span class="ar-s">١١ ص — ١١ م</span><span class="en-s">11 AM — 11 PM</span></span>
-          </div>
-          <div class="h-row">
-            <span class="h-day"><span class="ar-s">الجمعة</span><span class="en-s">Friday</span></span>
-            <span class="h-time"><span class="ar-s">٢ م — ١١ م</span><span class="en-s">2 PM — 11 PM</span></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="booking-form rv-r">
-        <div class="form-heading"><span class="ar-s">احجزي موعدكِ</span><span class="en-s">Book Your Appointment</span></div>
-        <div class="fg-row">
-          <div class="fg"><label><span class="ar-s">الاسم الكريم</span><span class="en-s">Full Name</span></label><input type="text" id="fn" placeholder="اسمك الكريم"></div>
-          <div class="fg"><label><span class="ar-s">رقم الجوال</span><span class="en-s">Phone Number</span></label><input type="tel" id="fp" placeholder="+966 5X XXX XXXX"></div>
-        </div>
-        <div class="fg">
-          <label><span class="ar-s">الخدمة المطلوبة</span><span class="en-s">Service Required</span></label>
-          <select id="fs">
-            <option value=""><span class="ar-s">اختاري الخدمة</span></option>
-            <option>تصفيف الشعر | Hair Styling — SAR 50+</option>
-            <option>صباغة الشعر | Hair Coloring — SAR 150+</option>
-            <option>مكياج احترافي | Makeup — SAR 120+</option>
-            <option>مانيكير وبديكير | Manicure & Pedicure — SAR 40+</option>
-            <option>حمام مغربي | Moroccan Bath — SAR 100+</option>
-            <option>إزالة الشعر | Hair Removal — SAR 10+</option>
-            <option>باقة اليومية | Daily Package — SAR 100</option>
-            <option>باقة الخمس خدمات | Five-Service Package — SAR 150</option>
-          </select>
-        </div>
-        <div class="fg-row">
-          <div class="fg"><label><span class="ar-s">التاريخ</span><span class="en-s">Date</span></label><input type="date" id="fd" dir="ltr" style="text-align:right"></div>
-          <div class="fg"><label><span class="ar-s">الوقت المفضل</span><span class="en-s">Preferred Time</span></label><input type="time" id="ft" dir="ltr" style="text-align:right"></div>
-        </div>
-        <div class="fg"><label><span class="ar-s">ملاحظات إضافية</span><span class="en-s">Additional Notes</span></label><textarea id="fnt" rows="3" style="resize:none" placeholder="أي طلبات خاصة..."></textarea></div>
-        <button class="btn-form" onclick="sendWA()">
-          <span class="ar-s">إرسال الحجز عبر واتساب ✦</span>
-          <span class="en-s">Send Booking via WhatsApp ✦</span>
+        <button onclick="sendWhatsApp()" style="width:100%;background:var(--gold);color:var(--ink);padding:16px;font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:700;border:none;letter-spacing:.08em;transition:opacity .25s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          إرسال عبر واتساب 📲
         </button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class= "ctr">
-    <div class="footer-top">
-      <div class="f-brand rv">
-        <div class="f-logo-main">Lillian</div>
-        <div class="f-logo-sub"><span class="ar-s">صالون الأنيقة للتزيين النسائي</span><span class="en-s">Elegant Ladies Salon</span></div>
-        <p class="f-desc">
-          <span class="ar-s">صالون نسائي راقٍ في قلب جدة، نقدم أرقى خدمات التجميل بأيدٍ محترفة وبيئة فاخرة تليق بكِ.</span>
-          <span class="en-s">A luxury ladies' salon in the heart of Jeddah, offering the finest beauty services by professional hands.</span>
-        </p>
-        <div class="f-socials">
-          <a class="f-soc" href="https://instagram.com/lillian_beauty_salon1" target="_blank" title="Instagram">📸</a>
-          <a class="f-soc" href="https://wa.me/966545316367" target="_blank" title="WhatsApp"><svg style="width:18px;height:18px;fill:rgba(255,255,255,.55)" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
-          <a class="f-soc" href="tel:0545316367" title="Call">📞</a>
-          <a class="f-soc" href="https://maps.google.com/?q=صالون+ليليان+الأنيقة+جدة+المروة" target="_blank" title="Map">📍</a>
-        </div>
-      </div>
-      <div class="f-col rv">
-        <div class="f-col-title"><span class="ar-s">روابط سريعة</span><span class="en-s">Quick Links</span></div>
-        <ul>
-          <li><a href="#about"><span class="ar-s">عن الصالون</span><span class="en-s">About</span></a></li>
-          <li><a href="#services"><span class="ar-s">خدماتنا</span><span class="en-s">Services</span></a></li>
-          <li><a href="#offers"><span class="ar-s">العروض</span><span class="en-s">Offers</span></a></li>
-          <li><a href="#reviews"><span class="ar-s">التقييمات</span><span class="en-s">Reviews</span></a></li>
-          <li><a href="#booking"><span class="ar-s">احجزي الآن</span><span class="en-s">Book Now</span></a></li>
-        </ul>
-      </div>
-      <div class="f-col rv">
-        <div class="f-col-title"><span class="ar-s">تواصلي معنا</span><span class="en-s">Contact</span></div>
-        <ul>
-          <li><a href="tel:0545316367" dir="ltr">054 531 6367</a></li>
-          <li><a href="https://wa.me/966545316367">WhatsApp</a></li>
-          <li><a href="https://instagram.com/lillian_beauty_salon1" target="_blank">@lillian_beauty_salon1</a></li>
-          <li><a href="#"><span class="ar-s">حي المروة، جدة</span><span class="en-s">Al-Marwah, Jeddah</span></a></li>
-          <li><a href="#"><span class="ar-s">فندق أراك المروة</span><span class="en-s">Arak Marwah Hotel</span></a></li>
-        </ul>
+<!-- ========== FOOTER ========== -->
+<footer style="background:#0C0907;border-top:1px solid rgba(201,169,110,.1);padding:48px 24px;">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;max-width:1000px;margin:0 auto 40px;">
+    <div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--gold);margin-bottom:16px;">Lillian</div>
+      <p style="font-family:'Cairo',sans-serif;font-size:.85rem;color:#d0c5b5;line-height:1.8;">نصنع جمالاً خالداً في ملاذ من الخصوصية والرقي.</p>
+    </div>
+    <div>
+      <h4 style="font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.15em;color:#eae1dd;text-transform:uppercase;margin-bottom:20px;">التنقل</h4>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <a href="#services" style="font-family:'Cairo',sans-serif;font-size:.85rem;color:#d0c5b5;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='#d0c5b5'">الخدمات</a>
+        <a href="#prices" style="font-family:'Cairo',sans-serif;font-size:.85rem;color:#d0c5b5;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='#d0c5b5'">الأسعار</a>
+        <a href="#gallery" style="font-family:'Cairo',sans-serif;font-size:.85rem;color:#d0c5b5;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='#d0c5b5'">المعرض</a>
+        <a href="#contact" style="font-family:'Cairo',sans-serif;font-size:.85rem;color:#d0c5b5;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='#d0c5b5'">احجزي موعد</a>
       </div>
     </div>
-    <div class="footer-bot">
-      <p>© 2025 Lillian Elegant Salon · <span class="ar-s">جميع الحقوق محفوظة</span><span class="en-s">All Rights Reserved</span></p>
-      <p style="color:rgba(255,255,255,.15)">Jeddah · Saudi Arabia · جدة، المملكة العربية السعودية</p>
+    <div>
+      <h4 style="font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.15em;color:#eae1dd;text-transform:uppercase;margin-bottom:20px;">تواصلي معنا</h4>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <a href="tel:0545316367" style="font-family:'Cairo',sans-serif;font-size:.85rem;color:#d0c5b5;text-decoration:none;">054 531 6367</a>
+        <a href="https://wa.me/966545316367" style="font-family:'Cairo',sans-serif;font-size:.85rem;color:#d0c5b5;text-decoration:none;">واتساب</a>
+        <a href="https://instagram.com/lillian_beauty_salon1" style="font-family:'Cairo',sans-serif;font-size:.85rem;color:#d0c5b5;text-decoration:none;" target="_blank">انستقرام</a>
+      </div>
     </div>
+  </div>
+  <div style="border-top:1px solid rgba(201,169,110,.1);padding-top:24px;text-align:center;">
+    <p style="font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.1em;color:#d0c5b5;">© 2025 صالون ليليان الأنيقة — جدة، حي المروة</p>
   </div>
 </footer>
 
-<!-- WhatsApp Float -->
-<a href="https://wa.me/966545316367" class="wa-btn" target="_blank" title="WhatsApp">
-  <div class="wa-pulse"></div>
-  <svg style="position:relative;z-index:1;width:28px;height:28px;fill:#fff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
-  </svg>
+<!-- WhatsApp floating button -->
+<a id="wp-btn" href="https://wa.me/966545316367" style="position:fixed;bottom:24px;left:24px;z-index:50;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.4);text-decoration:none;" target="_blank">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.56 5.338-11.891 11.893-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.481 8.412 0 6.561-5.338 11.892-11.893 11.892-1.997 0-3.951-.5-5.688-1.448l-6.305 1.656zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.591 5.405 0 9.805-4.414 9.805-9.801 0-5.386-4.399-9.799-9.805-9.799-5.407 0-9.808 4.413-9.808 9.799 0 2.153.633 4.232 1.83 5.968l-1.092 3.992 4.083-1.05zm10.98-7.795c-.3-.151-1.776-.877-2.05-.976-.275-.099-.475-.149-.675.15-.2.298-.776.976-.951 1.176-.175.198-.35.223-.65.071-.3-.151-1.265-.467-2.41-1.487-.893-.797-1.495-1.782-1.67-2.081-.175-.298-.019-.46.132-.609.135-.133.3-.35.45-.524.151-.176.201-.299.302-.498.1-.198.05-.374-.025-.524-.075-.15-.675-1.625-.925-2.225-.244-.589-.493-.51-.675-.52-.176-.01-.376-.011-.576-.011-.2 0-.525.075-.8.375-.275.3-.1.745-.1 1.62s1.1 1.72 1.25 1.92c.15.2 2.165 3.305 5.245 4.637.731.317 1.303.506 1.748.647.737.234 1.408.201 1.94.12.592-.09 1.776-.725 2.025-1.425.25-.7.25-1.3.175-1.425-.075-.125-.275-.199-.575-.35z"/></svg>
 </a>
 
 <script>
-/* ── CURSOR ── */
-const cur=document.getElementById('cur');
-const ring=document.getElementById('cur-ring');
-let rx=0,ry=0,cx=0,cy=0;
-document.addEventListener('mousemove',e=>{
-  cx=e.clientX;cy=e.clientY;
-  cur.style.left=cx+'px';cur.style.top=cy+'px';
-});
-function lerp(a,b,n){return a+(b-a)*n}
-function animCursor(){
-  rx=lerp(rx,cx,.12);ry=lerp(ry,cy,.12);
-  ring.style.left=rx+'px';ring.style.top=ry+'px';
-  requestAnimationFrame(animCursor);
-}
-animCursor();
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{
-    cur.style.transform='translate(-50%,-50%) scale(2.5)';
-    cur.style.opacity='.5';
-    ring.style.transform='translate(-50%,-50%) scale(1.5)';
+// Custom cursor
+const cur = document.getElementById('cur');
+const curRing = document.getElementById('cur-ring');
+if(cur && window.matchMedia('(pointer:fine)').matches){
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px';
+    setTimeout(()=>{ curRing.style.left=(e.clientX)+'px'; curRing.style.top=(e.clientY)+'px'; }, 60);
   });
-  el.addEventListener('mouseleave',()=>{
-    cur.style.transform='translate(-50%,-50%) scale(1)';
-    cur.style.opacity='1';
-    ring.style.transform='translate(-50%,-50%) scale(1)';
+}
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if(window.scrollY > 60) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+  // Reveal
+  document.querySelectorAll('.reveal').forEach(el => {
+    if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('on');
   });
 });
 
-/* ── NAV ── */
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>80));
-
-/* ── LANG ── */
-let isEn=false;
-function toggleLang(){
-  isEn=!isEn;
-  document.body.classList.toggle('en',isEn);
-  const html=document.documentElement;
-  html.lang=isEn?'en':'ar';
-  html.dir=isEn?'ltr':'rtl';
-  // update visible spans
-  document.querySelectorAll('.ar-s').forEach(el=>el.style.display=isEn?'none':'inline');
-  document.querySelectorAll('.en-s').forEach(el=>el.style.display=isEn?'inline':'none');
-  document.querySelectorAll('.ar-b').forEach(el=>el.style.display=isEn?'none':'block');
-  document.querySelectorAll('.en-b').forEach(el=>el.style.display=isEn?'block':'none');
-}
-
-/* ── MENU ── */
+// Mobile menu
 function toggleMenu(){
-  document.getElementById('mmenu').classList.toggle('open');
+  const m = document.getElementById('mobile-menu');
+  const o = document.getElementById('menu-overlay');
+  m.classList.toggle('open');
+  o.style.display = m.classList.contains('open') ? 'block' : 'none';
 }
 
-/* ── REVEAL ── */
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach((e,i)=>{
-    if(e.isIntersecting){
-      const delay=e.target.dataset.delay||0;
-      setTimeout(()=>e.target.classList.add('on'),Number(delay));
-      observer.unobserve(e.target);
-    }
+// Tabs
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  document.querySelectorAll('#tabs button').forEach(b => {
+    b.style.background='transparent'; b.style.color='var(--gold)'; b.style.borderColor='rgba(201,169,110,.4)';
   });
-},{threshold:.08});
-document.querySelectorAll('.rv,.rv-l,.rv-r').forEach((el,i)=>{
-  const siblings=[...el.parentElement.children].filter(c=>c.classList.contains('rv')||c.classList.contains('rv-l')||c.classList.contains('rv-r'));
-  const idx=siblings.indexOf(el);
-  el.dataset.delay=idx*90;
-  observer.observe(el);
-});
-
-/* ── BOOKING ── */
-function sendWA(){
-  const name=document.getElementById('fn').value||'—';
-  const phone=document.getElementById('fp').value||'—';
-  const svc=document.getElementById('fs').value||'—';
-  const date=document.getElementById('fd').value||'—';
-  const time=document.getElementById('ft').value||'—';
-  const note=document.getElementById('fnt').value||'—';
-  const msg=isEn
-    ?`Hello Lillian Salon! 🌸\n\n✨ Appointment Request\n• Name: ${name}\n• Phone: ${phone}\n• Service: ${svc}\n• Date: ${date}\n• Time: ${time}\n• Notes: ${note}`
-    :`مرحباً صالون ليليان الأنيقة! 🌸\n\n✨ طلب حجز موعد\n• الاسم: ${name}\n• الجوال: ${phone}\n• الخدمة: ${svc}\n• التاريخ: ${date}\n• الوقت: ${time}\n• ملاحظات: ${note}`;
-  window.open('https://wa.me/966545316367?text='+encodeURIComponent(msg),'_blank');
+  event.target.style.background='var(--gold)'; event.target.style.color='var(--ink)'; event.target.style.borderColor='var(--gold)';
 }
+
+// WhatsApp form
+function sendWhatsApp(){
+  const name = document.getElementById('f-name').value || 'غير محدد';
+  const phone = document.getElementById('f-phone').value || 'غير محدد';
+  const service = document.getElementById('f-service').value;
+  const date = document.getElementById('f-date').value || 'غير محدد';
+  const notes = document.getElementById('f-notes').value || 'لا يوجد';
+  const msg = `طلب حجز — صالون ليليان\n\nالاسم: ${name}\nالجوال: ${phone}\nالخدمة: ${service}\nالتاريخ: ${date}\nملاحظات: ${notes}`;
+  window.open('https://wa.me/966545316367?text='+encodeURIComponent(msg), '_blank');
+}
+
+// Initial reveal
+setTimeout(()=>{ window.dispatchEvent(new Event('scroll')); }, 100);
 </script>
 </body>
 </html>
