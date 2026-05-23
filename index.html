@@ -71,14 +71,15 @@ body::after {
 
 /* Theme toggle */
 #theme-btn {
-  width:44px; height:24px; background:var(--border); border:1px solid var(--border); border-radius:99px;
-  position:relative; cursor:pointer; transition:background .3s; flex-shrink:0;
+  display:flex; align-items:center; gap:5px; background:none;
+  border:1px solid var(--border); border-radius:99px;
+  padding:4px 10px; cursor:pointer; transition:border-color .3s; flex-shrink:0;
 }
-#theme-btn::after {
-  content:''; position:absolute; top:3px; right:3px; width:16px; height:16px;
-  background:var(--gold); border-radius:50%; transition:transform .3s;
-}
-[data-theme="light"] #theme-btn::after { transform:translateX(-20px); }
+#theme-btn:hover { border-color:var(--gold); }
+#theme-icon { color:var(--gold); font-size:18px; transition:transform .4s; }
+#theme-btn:hover #theme-icon { transform:rotate(20deg); }
+#theme-label { color:var(--gold); font-family:'Jost',sans-serif; font-size:.65rem; letter-spacing:.1em; }
+
 
 /* Lang toggle */
 #lang-btn {
@@ -202,7 +203,10 @@ select.form-field option { background:var(--bg3); color:var(--text); }
       <span id="lang-label">EN</span>
     </button>
     <!-- Theme toggle -->
-    <div id="theme-btn" onclick="toggleTheme()" title="تبديل الوضع"></div>
+    <button id="theme-btn" onclick="toggleTheme()" title="تبديل الوضع">
+      <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+      <span id="theme-label">DARK</span>
+    </button>
     <!-- Book -->
     <a href="#contact" class="btn-gold" style="padding:8px 18px;font-size:.72rem;display:none;" id="nav-book">
       <span class="ar-only">احجزي</span><span class="en-only">Book Now</span>
@@ -695,13 +699,30 @@ select.form-field option { background:var(--bg3); color:var(--text); }
 
 <script>
 // ===== THEME =====
+function updateThemeBtn(t){
+  const icon  = document.getElementById('theme-icon');
+  const label = document.getElementById('theme-label');
+  if(!icon) return;
+  if(t === 'light'){
+    icon.textContent  = 'light_mode';
+    label.textContent = 'LIGHT';
+  } else {
+    icon.textContent  = 'dark_mode';
+    label.textContent = 'DARK';
+  }
+}
 function toggleTheme(){
   const h = document.documentElement;
   const t = h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   h.setAttribute('data-theme', t);
   localStorage.setItem('lyl-theme', t);
+  updateThemeBtn(t);
 }
-(function(){ const t = localStorage.getItem('lyl-theme'); if(t) document.documentElement.setAttribute('data-theme',t); })();
+(function(){
+  const t = localStorage.getItem('lyl-theme');
+  if(t){ document.documentElement.setAttribute('data-theme',t); updateThemeBtn(t); }
+  else { updateThemeBtn('dark'); }
+})();
 
 // ===== LANG =====
 let currentLang = localStorage.getItem('lyl-lang') || 'ar';
