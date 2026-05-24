@@ -733,7 +733,7 @@ function updateThemeBtn(t){
 }
 function toggleTheme(){
   const h = document.documentElement;
-  const t = h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  const t = h.getAttribute('data-theme') ===   'dark' ? 'light' : 'dark';
   h.setAttribute('data-theme', t);
   localStorage.setItem('lyl-theme', t);
   updateThemeBtn(t);
